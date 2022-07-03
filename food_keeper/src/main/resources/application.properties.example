@@ -1,0 +1,22 @@
+
+# DataBase Connection
+spring.datasource.url= jdbc:postgresql://<ip-address>:<port>/<database_name>
+spring.datasource.username=<username>
+spring.datasource.password=<password>
+
+# DataBase props
+spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation= true
+spring.jpa.properties.hibernate.dialect= org.hibernate.dialect.PostgreSQLDialect
+# Hibernate ddl auto (create, create-drop, validate, update)
+spring.jpa.hibernate.ddl-auto= update
+
+# App props
+foodkeeper.app.jwtSecret= <jwtSecret>
+foodkeeper.app.jwtExpirationMs= 86400000
+
+# Logger log4j2
+logstash.host=@logstash.host@
+logstash.port=@logstash.port@
+logger.console.tresholdFilter=@logger.console.tresholdFilter@
+logger.socket.tresholdFilter=@logger.socket.tresholdFilter@
+
