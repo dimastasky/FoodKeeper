@@ -8,8 +8,8 @@
 		<version>2.7.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.example</groupId>
-	<artifactId>accounts_service</artifactId>
+	<groupId>com.dimastasky</groupId>
+	<artifactId>foodkeeper</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>FoodKeeper</name>
 	<description>Demo project for Spring Boot</description>
@@ -70,9 +70,11 @@
 
 	<build>
 		<plugins>
+
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>2.6.4</version>
 				<configuration>
 					<excludes>
 						<exclude>

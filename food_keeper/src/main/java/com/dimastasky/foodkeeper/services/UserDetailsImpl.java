@@ -1,7 +1,6 @@
-package com.example.accounts_service.services;
+package com.dimastasky.foodkeeper.services;
 
-import com.example.accounts_service.models.account.User;
-import com.example.accounts_service.models.food_warehouse.Warehouse;
+import com.dimastasky.foodkeeper.models.account.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
