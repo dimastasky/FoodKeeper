@@ -16,21 +16,20 @@ public class ProductCreationRequest {
     @NotBlank
     private String name;
 
-    @NotBlank
-    private Set<FoodType> foodTypeSet;
+    private Set<String> foodTypeSet;
 
-    @NotBlank
+
     private Double energy;
 
-    @NotBlank
+
     private Double fat;
 
-    @NotBlank
+
     private Double protein;
 
-    @NotBlank
+
     private Double carbs;
 
-    @NotBlank
+
     private Integer weight;
 }

@@ -7,7 +7,7 @@ import javax.validation.constraints.NotBlank;
 
 @Getter
 @Setter
-public class ProductsCountRequest {
+public class ProductsCountInWrhsRequest {
     @NotBlank
     private Integer count;
 }

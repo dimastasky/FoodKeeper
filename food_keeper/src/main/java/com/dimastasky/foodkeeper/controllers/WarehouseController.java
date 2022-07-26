@@ -1,11 +1,14 @@
 package com.dimastasky.foodkeeper.controllers;
 
 import com.dimastasky.foodkeeper.models.food_warehouse.Warehouse;
+import com.dimastasky.foodkeeper.models.food_warehouse.WarehouseProducts;
+import com.dimastasky.foodkeeper.payload.request.foodkeeper.ProductsCountInWrhsRequest;
 import com.dimastasky.foodkeeper.payload.request.foodkeeper.WarehouseRequest;
 import com.dimastasky.foodkeeper.repository.RoleRepository;
 import com.dimastasky.foodkeeper.repository.UserRepository;
 import com.dimastasky.foodkeeper.repository.warehouse.FoodTypeRepository;
 import com.dimastasky.foodkeeper.repository.warehouse.ProductRepository;
+import com.dimastasky.foodkeeper.repository.warehouse.WarehouseProductsRepository;
 import com.dimastasky.foodkeeper.repository.warehouse.WarehouseRepository;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +37,9 @@ public class WarehouseController {
 
     @Autowired
     WarehouseRepository warehouseRepository;
+
+    @Autowired
+    WarehouseProductsRepository warehouseProductsRepository;
 
     // TODO: Задать права доступа к методам
 
@@ -64,6 +70,20 @@ public class WarehouseController {
 
         return ResponseEntity.ok("Warehouse created.");
     }
+
+    @PostMapping("/warehouse/addProduct/{productId}")
+    public ResponseEntity<?> addProductToW(@Valid @PathVariable Long productId, @RequestBody ProductsCountInWrhsRequest productsCount) {
+        WarehouseProducts warehouseProducts = new WarehouseProducts();
+
+        warehouseProducts.setCount(productsCount.getCount());
+
+        warehouseProductsRepository.save(warehouseProducts);
+
+        return ResponseEntity.ok("Product added.");
+    }
+
+
+
 
 
 }

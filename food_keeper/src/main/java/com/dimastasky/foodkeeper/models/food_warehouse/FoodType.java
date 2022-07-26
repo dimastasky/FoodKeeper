@@ -17,7 +17,7 @@ public class FoodType {
 
     @Enumerated(EnumType.STRING)
     @Column(length = 20)
-    private EFoodType foodType;
+    private EFoodType name;
 
     public FoodType() {
 
@@ -25,6 +25,6 @@ public class FoodType {
 
     public FoodType(Integer id, EFoodType foodType) {
         this.id = id;
-        this.foodType = foodType;
+        this.name = foodType;
     }
 }
