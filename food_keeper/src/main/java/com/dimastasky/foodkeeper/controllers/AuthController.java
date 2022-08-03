@@ -52,15 +52,16 @@ public class AuthController {
     @Autowired
     JwtUtils jwtUtils;
 
-    @GetMapping("/get-users")
+    @GetMapping("/all-users")
     //@PreAuthorize("hasRole('MODERATOR')")
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
-    @PostMapping("/signin")
+    @PostMapping("/session")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) throws AWTException {
         Authentication authentication = authenticationManager.authenticate(
+
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword())
         );
 
@@ -80,7 +81,7 @@ public class AuthController {
                 roles));
     }
 
-    @PostMapping("/signup")
+    @PostMapping("/user")
     //@PreAuthorize("hasRole('MODERATOR')") // Убрать, если нужно зарегать модератора
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
@@ -143,5 +144,7 @@ public class AuthController {
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
+
+
 
 }

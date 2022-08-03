@@ -24,5 +24,7 @@ public class WarehouseProducts {
 
     private Integer count;
 
+    //TODO: Timestamp дата последнего добавления на склад
+
 
 }
