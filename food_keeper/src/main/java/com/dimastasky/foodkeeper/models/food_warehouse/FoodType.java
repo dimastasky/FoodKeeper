@@ -23,8 +23,7 @@ public class FoodType {
 
     }
 
-    public FoodType(Integer id, EFoodType foodType) {
-        this.id = id;
+    public FoodType( EFoodType foodType) {
         this.name = foodType;
     }
 }

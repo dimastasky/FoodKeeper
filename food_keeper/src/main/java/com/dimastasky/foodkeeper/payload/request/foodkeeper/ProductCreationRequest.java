@@ -16,7 +16,7 @@ public class ProductCreationRequest {
     @NotBlank
     private String name;
 
-    private Set<String> foodTypeSet;
+    private Set<String> foodType;
 
 
     private Double energy;

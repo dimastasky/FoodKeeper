@@ -54,7 +54,7 @@ public class ProductsController {
 
         product.setName(productCreationRequest.getName());
 
-        Set<String> strFoodTypes = productCreationRequest.getFoodTypeSet();
+        Set<String> strFoodTypes = productCreationRequest.getFoodType();
         Set<FoodType> foodTypeSet = new HashSet<>();
 
         if (strFoodTypes == null) {
