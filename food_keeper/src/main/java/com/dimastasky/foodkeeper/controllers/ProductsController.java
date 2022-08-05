@@ -54,70 +54,69 @@ public class ProductsController {
 
         product.setName(productCreationRequest.getName());
 
-        Set<String> strFoodTypes = productCreationRequest.getFoodType();
-        Set<FoodType> foodTypeSet = new HashSet<>();
+        product.setFoodType(foodTypeRepository.getReferenceById(productCreationRequest.getFoodType()));
 
-        if (strFoodTypes == null) {
-            FoodType defType = foodTypeRepository.findByName(EFoodType.DEFAULT)
-                    .orElseThrow(() -> new RuntimeException("Error: FoodType is not found!"));
-            foodTypeSet.add(defType);
-        } else {
-            strFoodTypes.forEach(type -> {
-                switch (type) {
-                    case "fruits" -> {
-                        FoodType fruitsType = foodTypeRepository.findByName(EFoodType.FRUITS)
-                                .orElseThrow(() -> new RuntimeException("Error: FoodType is not found!"));
-                        foodTypeSet.add(fruitsType);
-                    }
-                    case "vegetables" -> {
-                        FoodType vegsType = foodTypeRepository.findByName(EFoodType.VEGETABLES)
-                                .orElseThrow(() -> new RuntimeException("Error: FoodType is not found!"));
-                        foodTypeSet.add(vegsType);
-                    }
-                    case "conserves" -> {
-                        FoodType conservesType = foodTypeRepository.findByName(EFoodType.CONSERVES)
-                                .orElseThrow(() -> new RuntimeException("Error: FoodType is not found!"));
-                        foodTypeSet.add(conservesType);
-                    }
-                    case "grain" -> {
-                        FoodType grainType = foodTypeRepository.findByName(EFoodType.GRAIN)
-                                .orElseThrow(() -> new RuntimeException("Error: FoodType is not found!"));
-                        foodTypeSet.add(grainType);
-                    }
-                    case "meat" -> {
-                        FoodType meatType = foodTypeRepository.findByName(EFoodType.MEAT)
-                                .orElseThrow(() -> new RuntimeException("Error: FoodType is not found!"));
-                        foodTypeSet.add(meatType);
-                    }
-                    case "poultry" -> {
-                        FoodType poultryType = foodTypeRepository.findByName(EFoodType.POULTRY)
-                                .orElseThrow(() -> new RuntimeException("Error: FoodType is not found!"));
-                        foodTypeSet.add(poultryType);
-                    }
-                    case "fish" -> {
-                        FoodType fishType = foodTypeRepository.findByName(EFoodType.FISH)
-                                .orElseThrow(() -> new RuntimeException("Error: FoodType is not found!"));
-                        foodTypeSet.add(fishType);
-                    }
-                    case "sauce" -> {
-                        FoodType sauceType = foodTypeRepository.findByName(EFoodType.SAUCE)
-                                .orElseThrow(() -> new RuntimeException("Error: FoodType is not found!"));
-                        foodTypeSet.add(sauceType);
-                    }
-                    case "drinks" -> {
-                        FoodType drinksType = foodTypeRepository.findByName(EFoodType.DRINKS)
-                                .orElseThrow(() -> new RuntimeException("Error: FoodType is not found!"));
-                        foodTypeSet.add(drinksType);
-                    }
-                    default -> {
-                        FoodType defType = foodTypeRepository.findByName(EFoodType.DEFAULT)
-                                .orElseThrow(() -> new RuntimeException("Error: FoodType is not found!"));
-                        foodTypeSet.add(defType);
-                    }
-                }
-            });
-        }
-        product.setFoodTypes(foodTypeSet);
+//        if (foodType == null) {
+//            FoodType defType = foodTypeRepository.findByName(EFoodType.DEFAULT)
+//                    .orElseThrow(() -> new RuntimeException("Error: FoodType is not found!"));
+//            foodType.add(defType);
+//        } else {
+//            strFoodTypes.forEach(type -> {
+//                switch (type) {
+//                    case "fruits" -> {
+//                        FoodType fruitsType = foodTypeRepository.findByName(EFoodType.FRUITS)
+//                                .orElseThrow(() -> new RuntimeException("Error: FoodType is not found!"));
+//                        foodType.add(fruitsType);
+//                    }
+//                    case "vegetables" -> {
+//                        FoodType vegsType = foodTypeRepository.findByName(EFoodType.VEGETABLES)
+//                                .orElseThrow(() -> new RuntimeException("Error: FoodType is not found!"));
+//                        foodType.add(vegsType);
+//                    }
+//                    case "conserves" -> {
+//                        FoodType conservesType = foodTypeRepository.findByName(EFoodType.CONSERVES)
+//                                .orElseThrow(() -> new RuntimeException("Error: FoodType is not found!"));
+//                        foodType.add(conservesType);
+//                    }
+//                    case "grain" -> {
+//                        FoodType grainType = foodTypeRepository.findByName(EFoodType.GRAIN)
+//                                .orElseThrow(() -> new RuntimeException("Error: FoodType is not found!"));
+//                        foodType.add(grainType);
+//                    }
+//                    case "meat" -> {
+//                        FoodType meatType = foodTypeRepository.findByName(EFoodType.MEAT)
+//                                .orElseThrow(() -> new RuntimeException("Error: FoodType is not found!"));
+//                        foodType.add(meatType);
+//                    }
+//                    case "poultry" -> {
+//                        FoodType poultryType = foodTypeRepository.findByName(EFoodType.POULTRY)
+//                                .orElseThrow(() -> new RuntimeException("Error: FoodType is not found!"));
+//                        foodType.add(poultryType);
+//                    }
+//                    case "fish" -> {
+//                        FoodType fishType = foodTypeRepository.findByName(EFoodType.FISH)
+//                                .orElseThrow(() -> new RuntimeException("Error: FoodType is not found!"));
+//                        foodType.add(fishType);
+//                    }
+//                    case "sauce" -> {
+//                        FoodType sauceType = foodTypeRepository.findByName(EFoodType.SAUCE)
+//                                .orElseThrow(() -> new RuntimeException("Error: FoodType is not found!"));
+//                        foodType.add(sauceType);
+//                    }
+//                    case "drinks" -> {
+//                        FoodType drinksType = foodTypeRepository.findByName(EFoodType.DRINKS)
+//                                .orElseThrow(() -> new RuntimeException("Error: FoodType is not found!"));
+//                        foodType.add(drinksType);
+//                    }
+//                    default -> {
+//                        FoodType defType = foodTypeRepository.findByName(EFoodType.DEFAULT)
+//                                .orElseThrow(() -> new RuntimeException("Error: FoodType is not found!"));
+//                        foodType.add(defType);
+//                    }
+//                }
+//            });
+
+
         product.setEnergy(productCreationRequest.getEnergy());
         product.setFat(productCreationRequest.getFat());
         product.setProtein(productCreationRequest.getProtein());

@@ -67,6 +67,10 @@ const Home = () => {
         {!currentUser && (
           <Link to={"/login"}><button type="button" class="btn btn-secondary"><b>Войти</b></button></Link>
         )}
+        {!currentUser && (
+          <Link to={"/signup"}><button type="button" class="btn btn-secondary"><b>Регистрация</b></button></Link>
+        )}
+        
       </div>
 
     </div>

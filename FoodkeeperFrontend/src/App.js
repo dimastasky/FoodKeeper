@@ -131,7 +131,7 @@ const App = () => {
             </li>
 
             {showModeratorBoard && (<li className="nav-item">
-              <Link to={"/register"} className="nav-link">
+              <Link to={"/signup"} className="nav-link">
                 Регистрация
               </Link>
             </li>)}
@@ -143,7 +143,7 @@ const App = () => {
         <Switch>
           <Route exact path={["/", "/home"]} component={Home} />
           <Route exact path="/login" component={Login} />
-          <Route exact path="/register" component={Register} />
+          <Route exact path="/signup" component={Register} />
           <Route exact path="/profile" component={Profile} />
 
           

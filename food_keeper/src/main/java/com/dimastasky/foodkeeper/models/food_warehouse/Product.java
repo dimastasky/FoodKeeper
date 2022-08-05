@@ -1,5 +1,6 @@
 package com.dimastasky.foodkeeper.models.food_warehouse;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,10 +27,14 @@ public class Product {
     @Size(max = 50)
     private String name;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name="product_types", joinColumns = @JoinColumn(name = "product_id"),
-    inverseJoinColumns = @JoinColumn(name = "type_id"))
-    private Set<FoodType> foodTypes = new HashSet<>();
+//    @ManyToMany(fetch = FetchType.LAZY)
+//    @JoinTable(name="product_types", joinColumns = @JoinColumn(name = "product_id"),
+//    inverseJoinColumns = @JoinColumn(name = "type_id"))
+//    private Set<FoodType> foodTypes = new HashSet<>();
+
+    @ManyToOne
+    @JoinColumn(name = "foodtype_id", referencedColumnName = "id")
+    private FoodType foodType;
 
 //    @NotBlank
     private Double energy;
@@ -50,15 +55,10 @@ public class Product {
 
     }
 
-    public Product(String name,
-                   Set<FoodType> foodTypes,
-                   Double energy,
-                   Double fat,
-                   Double protein,
-                   Double carbs,
-                   Integer weight) {
+    public Product(Long id, String name, FoodType foodType, Double energy, Double fat, Double protein, Double carbs, Integer weight) {
+        this.id = id;
         this.name = name;
-        this.foodTypes = foodTypes;
+        this.foodType = foodType;
         this.energy = energy;
         this.fat = fat;
         this.protein = protein;

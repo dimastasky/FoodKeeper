@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import { Switch, Route, Link } from "react-router-dom";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
@@ -98,7 +99,7 @@ const Register = (props) => {
     form.current.validateAll();
 
     if (checkBtn.current.context._errors.length === 0) {
-      AuthService.register(username, email, fullname, password).then(
+      AuthService.register(username, email, fullname, password, ["user"]).then(
         (response) => {
           setMessage(response.data.message);
           setSuccessful(true);
@@ -198,7 +199,9 @@ const Register = (props) => {
                 role="alert"
               >
                 {message}
+                
               </div>
+              <Link to={"/login"}><button type="button" class="btn btn-secondary"><b>Войти</b></button></Link>
             </div>
           )}
           <CheckButton style={{ display: "none" }} ref={checkBtn} />
