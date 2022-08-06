@@ -5,10 +5,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/css/bootstrap.css.map";
 
-import "./App.css";
-import "./Table.css"
-import "./Create.css"
-import "./media.css"
+import "./styles/App.css";
+import "./styles/Table.css"
+import "./styles/Create.css"
+import "./styles/media.css"
 
 import AuthService from "./services/auth.service";
 //Начальные страницы для пользователя
