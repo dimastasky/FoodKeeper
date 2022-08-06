@@ -128,7 +128,10 @@ public class ProductsController {
         return ResponseEntity.ok("Product created.");
     }
 
-
+    @GetMapping("/get-foodtypes")
+    public List<FoodType> getAllFoodTypes() {
+        return foodTypeRepository.findAll();
+    }
 
 
 
