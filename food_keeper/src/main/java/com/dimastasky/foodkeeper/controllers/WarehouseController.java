@@ -3,7 +3,7 @@ package com.dimastasky.foodkeeper.controllers;
 import com.dimastasky.foodkeeper.models.account.User;
 import com.dimastasky.foodkeeper.models.food_warehouse.Warehouse;
 import com.dimastasky.foodkeeper.models.food_warehouse.WarehouseRecords;
-import com.dimastasky.foodkeeper.payload.request.foodkeeper.ProductsRecordRequest;
+import com.dimastasky.foodkeeper.payload.request.foodkeeper.WarehouseRecordRequest;
 import com.dimastasky.foodkeeper.payload.request.foodkeeper.WarehouseRequest;
 import com.dimastasky.foodkeeper.payload.request.foodkeeper.WarehouseUserRequest;
 import com.dimastasky.foodkeeper.repository.RoleRepository;
@@ -50,7 +50,13 @@ public class WarehouseController {
     @GetMapping("/warehouse/{id}")
     public Warehouse getWarehouse(@PathVariable Long id)
     {
-        return warehouseRepository.getReferenceById(id);
+        Warehouse warehouse = warehouseRepository.getReferenceById(id);
+        User currentUser = userRepository.getReferenceById(id);
+        if(warehouse.getOwners().contains(currentUser)) {
+            return warehouseRepository.getReferenceById(id);
+        } else {
+            return null;
+        }
     }
 
     @DeleteMapping("/warehouse/{id}")
@@ -60,8 +66,11 @@ public class WarehouseController {
 
         if (warehouse.getOwners().contains(currentUser)) {
             warehouseRepository.deleteById(id);
+            return new ResponseEntity<>("Warehouse with id " + id + " deleted.", HttpStatus.ACCEPTED);
+        } else {
+            return new ResponseEntity<>("Not your warehouse", HttpStatus.UNAUTHORIZED);
         }
-        return new ResponseEntity<>("Warehouse with id " + id + " deleted.", HttpStatus.ACCEPTED);
+
     }
 
     // Todo: Создать ограничение на максимальное к-во складов для пользователя
@@ -79,16 +88,30 @@ public class WarehouseController {
         return ResponseEntity.ok("Warehouse created.");
     }
 
-    @PostMapping("/warehouse/newRecord")
-    public ResponseEntity<?> addProductToW(@Valid @PathVariable Long productId, @RequestBody ProductsRecordRequest productsCount) {
+    @PostMapping("/warehouse/{id}/newRecord")
+    public ResponseEntity<?> addProductToW(@Valid @RequestBody WarehouseRecordRequest warehouseRecordRequest, @PathVariable Long id) {
         WarehouseRecords warehouseRecords = new WarehouseRecords();
 
-        warehouseRecords.setCount(productsCount.getCount());
+        Warehouse warehouse = warehouseRepository.getReferenceById(id);
+        User currentUser = userRepository.getReferenceById(id);
 
-        warehouseProductsRepository.save(warehouseRecords);
+        //todo: обновление записи, если Продукт и срок годности совпадают
+        if (warehouse.getOwners().contains(currentUser)) {
+            warehouseRecords.setWarehouse(warehouseRepository.getReferenceById(id));
+            warehouseRecords.setProduct(productRepository.getReferenceById(warehouseRecordRequest.getProduct()));
+            warehouseRecords.setCount(warehouseRecordRequest.getCount());
+            warehouseRecords.setBestBefore(warehouseRecordRequest.getBestBefore());
+            warehouseRecords.setWeightKg(warehouseRecordRequest.getWeightKg());
 
-        return ResponseEntity.ok("Product added.");
+            warehouseProductsRepository.save(warehouseRecords);
+
+            return ResponseEntity.ok("Product added.");
+        } else {
+            return new ResponseEntity<>("Product add Unauthorized.", HttpStatus.UNAUTHORIZED);
+        }
     }
+
+
 
 
 
