@@ -48,7 +48,7 @@ public class Product {
     private Double carbs;
 
 //    @NotBlank
-    private Integer packageWeight;
+    private Double packageWeight;
 
     @JsonIgnore
     @OneToMany(mappedBy = "product")
@@ -58,7 +58,7 @@ public class Product {
 
     }
 
-    public Product(Long id, String name, FoodType foodType, Double energy, Double fat, Double protein, Double carbs, Integer weight) {
+    public Product(Long id, String name, FoodType foodType, Double energy, Double fat, Double protein, Double carbs, Double weight) {
         this.id = id;
         this.name = name;
         this.foodType = foodType;

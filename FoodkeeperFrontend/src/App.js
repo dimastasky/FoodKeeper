@@ -24,6 +24,7 @@ import BoardAdmin from "./components/Boards/BoardAdmin";
 
 import FoodKeeperButtons from "./components/FoodKeeper/FoodKeeperBoard";
 import ProductTable from "./components/FoodKeeper/ProductTable";
+import UserWarehousesTable from "./components/FoodKeeper/UserWarehousesTable";
 
 
 
@@ -153,6 +154,7 @@ const App = () => {
 
           <Route exact path="/foodkeeper" component={FoodKeeperButtons} />
           <Route path="/foodkeeper/products" component={ProductTable}/>
+          <Route path="/foodkeeper/user-warehouses" component={UserWarehousesTable}/>
           {/* 
           <Route path="/mod/users-table" component={ModeratorUsersTable}/>
           <Route path="mod/roles-units-table" component={RolesUnitsTable}/>

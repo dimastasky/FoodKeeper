@@ -48,7 +48,7 @@ public class WarehouseController {
     @GetMapping("/all-warehouses")
     public List<Warehouse> getAllWarehouses() { return warehouseRepository.findAll(); }
 
-    @GetMapping("/all-user-warehouses")
+    @PostMapping("/all-user-warehouses")
     public List<Warehouse> getAllUserWarehouses(@RequestBody CurrentUserRequest userRequest) {
         List<Warehouse> warehouses = new ArrayList<>();
         User currentUser = userRepository.getReferenceById(userRequest.getUser());

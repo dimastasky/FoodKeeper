@@ -31,5 +31,5 @@ public class ProductCreationRequest {
     private Double carbs;
 
 
-    private Integer weight;
+    private Double weight;
 }

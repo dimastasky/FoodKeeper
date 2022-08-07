@@ -7,7 +7,6 @@ import ProductsService from "../../services/products.service";
 import AddProduct from "./AddProduct";
 
 import { AiFillCloseCircle } from "react-icons/ai";
-import Axios from "axios";
 
 const ProductTable = () => {
   const [products, setProducts] = useState([]);

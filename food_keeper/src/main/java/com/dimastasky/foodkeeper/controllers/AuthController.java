@@ -5,6 +5,7 @@ import com.dimastasky.foodkeeper.models.account.User;
 import com.dimastasky.foodkeeper.models.data.ERole;
 import com.dimastasky.foodkeeper.models.data.EWarehouseType;
 import com.dimastasky.foodkeeper.models.food_warehouse.Warehouse;
+import com.dimastasky.foodkeeper.models.food_warehouse.WarehouseType;
 import com.dimastasky.foodkeeper.payload.request.authorization.LoginRequest;
 import com.dimastasky.foodkeeper.payload.request.authorization.SignupRequest;
 import com.dimastasky.foodkeeper.payload.response.JwtResponse;
@@ -139,7 +140,8 @@ public class AuthController {
         user.setRoles(roles);
 
         Set<Warehouse> warehouses = new HashSet<>();
-        Warehouse initWarehouse = new Warehouse("Склад "+ user.getFullname(), warehouseTypeRepository.getReferenceById(0));
+        WarehouseType warehouseType = warehouseTypeRepository.getReferenceById(1);
+        Warehouse initWarehouse = new Warehouse("Склад "+ user.getFullname(), warehouseType);
         warehouses.add(initWarehouse);
         user.setWarehouses(warehouses);
 
