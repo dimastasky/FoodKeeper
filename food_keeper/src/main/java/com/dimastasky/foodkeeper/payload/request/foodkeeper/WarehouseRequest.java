@@ -18,6 +18,6 @@ public class WarehouseRequest {
     private String name;
 
     @NotBlank
-    private EWarehouseType warehouseType;
+    private Integer warehouseType;
 
 }

@@ -7,6 +7,7 @@ import ProductsService from "../../services/products.service";
 import AddProduct from "./AddProduct";
 
 import { AiFillCloseCircle } from "react-icons/ai";
+import Axios from "axios";
 
 const ProductTable = () => {
   const [products, setProducts] = useState([]);
@@ -35,7 +36,7 @@ const ProductTable = () => {
 
   useEffect(() => {
     getAllProducts()
-  }, [])
+  }, []);
 
   // ---------COLUMNS-------
 
@@ -78,8 +79,8 @@ const ProductTable = () => {
   ]
 
   let history = useHistory();
-// TODO: Дизайн кнопки назад; 
-// TODO: Добавление элементов
+  // TODO: Дизайн кнопки назад; 
+  // TODO: Обновление таблицы при изменениях
   return (
     <div>
       <div>
@@ -95,6 +96,9 @@ const ProductTable = () => {
         </div>
       </div>
       <div className="jumbotron">
+        <AddProduct />
+      </div>
+      <div className="jumbotron">
         <Table
           columns={columns}
           rowKey={(record) => record.id}
@@ -103,9 +107,6 @@ const ProductTable = () => {
           loading={loading}
           onChange={handleTableChange}
         />
-      </div>
-      <div className="jumbotron">
-        <AddProduct/>
       </div>
     </div>
   );

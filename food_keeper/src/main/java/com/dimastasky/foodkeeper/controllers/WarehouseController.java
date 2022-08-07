@@ -1,16 +1,14 @@
 package com.dimastasky.foodkeeper.controllers;
 
+import com.dimastasky.foodkeeper.models.account.User;
 import com.dimastasky.foodkeeper.models.food_warehouse.Warehouse;
-import com.dimastasky.foodkeeper.models.food_warehouse.WarehouseProducts;
-import com.dimastasky.foodkeeper.payload.request.foodkeeper.ProductsCountInWrhsRequest;
+import com.dimastasky.foodkeeper.models.food_warehouse.WarehouseRecords;
+import com.dimastasky.foodkeeper.payload.request.foodkeeper.ProductsRecordRequest;
 import com.dimastasky.foodkeeper.payload.request.foodkeeper.WarehouseRequest;
+import com.dimastasky.foodkeeper.payload.request.foodkeeper.WarehouseUserRequest;
 import com.dimastasky.foodkeeper.repository.RoleRepository;
 import com.dimastasky.foodkeeper.repository.UserRepository;
-import com.dimastasky.foodkeeper.repository.warehouse.FoodTypeRepository;
-import com.dimastasky.foodkeeper.repository.warehouse.ProductRepository;
-import com.dimastasky.foodkeeper.repository.warehouse.WarehouseProductsRepository;
-import com.dimastasky.foodkeeper.repository.warehouse.WarehouseRepository;
-import lombok.Getter;
+import com.dimastasky.foodkeeper.repository.warehouse.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,6 +39,9 @@ public class WarehouseController {
     @Autowired
     WarehouseProductsRepository warehouseProductsRepository;
 
+    @Autowired
+    WarehouseTypeRepository warehouseTypeRepository;
+
     // TODO: Задать права доступа к методам
 
     @GetMapping("/all-warehouses")
@@ -53,31 +54,38 @@ public class WarehouseController {
     }
 
     @DeleteMapping("/warehouse/{id}")
-    public ResponseEntity<?> deleteWarehouse(@PathVariable Long id) {
-        warehouseRepository.deleteById(id);
+    public ResponseEntity<?> deleteWarehouse(@PathVariable Long id ,@RequestBody WarehouseUserRequest userRequest) {
+        Warehouse warehouse = warehouseRepository.getReferenceById(id);
+        User currentUser = userRepository.getReferenceById(id);
+
+        if (warehouse.getOwners().contains(currentUser)) {
+            warehouseRepository.deleteById(id);
+        }
         return new ResponseEntity<>("Warehouse with id " + id + " deleted.", HttpStatus.ACCEPTED);
     }
 
     // Todo: Создать ограничение на максимальное к-во складов для пользователя
+
+    //-----Создать склад-----
     @PostMapping("/warehouse")
     public ResponseEntity<?> createWarehouse(@Valid @RequestBody WarehouseRequest warehouseRequest) {
         Warehouse warehouse = new Warehouse();
 
         warehouse.setName(warehouseRequest.getName());
-        warehouse.setWarehouseType(warehouseRequest.getWarehouseType());
+        warehouse.setWarehouseType(warehouseTypeRepository.getReferenceById(warehouseRequest.getWarehouseType()));
 
         warehouseRepository.save(warehouse);
 
         return ResponseEntity.ok("Warehouse created.");
     }
 
-    @PostMapping("/warehouse/addProduct/{productId}")
-    public ResponseEntity<?> addProductToW(@Valid @PathVariable Long productId, @RequestBody ProductsCountInWrhsRequest productsCount) {
-        WarehouseProducts warehouseProducts = new WarehouseProducts();
+    @PostMapping("/warehouse/newRecord")
+    public ResponseEntity<?> addProductToW(@Valid @PathVariable Long productId, @RequestBody ProductsRecordRequest productsCount) {
+        WarehouseRecords warehouseRecords = new WarehouseRecords();
 
-        warehouseProducts.setCount(productsCount.getCount());
+        warehouseRecords.setCount(productsCount.getCount());
 
-        warehouseProductsRepository.save(warehouseProducts);
+        warehouseProductsRepository.save(warehouseRecords);
 
         return ResponseEntity.ok("Product added.");
     }

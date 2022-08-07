@@ -12,6 +12,7 @@ import com.dimastasky.foodkeeper.payload.response.MessageResponse;
 import com.dimastasky.foodkeeper.repository.RoleRepository;
 import com.dimastasky.foodkeeper.repository.UserRepository;
 import com.dimastasky.foodkeeper.repository.warehouse.WarehouseRepository;
+import com.dimastasky.foodkeeper.repository.warehouse.WarehouseTypeRepository;
 import com.dimastasky.foodkeeper.security.jwt.JwtUtils;
 import com.dimastasky.foodkeeper.services.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +52,9 @@ public class AuthController {
 
     @Autowired
     JwtUtils jwtUtils;
+
+    @Autowired
+    WarehouseTypeRepository warehouseTypeRepository;
 
     @GetMapping("/all-users")
     //@PreAuthorize("hasRole('MODERATOR')")
@@ -135,7 +139,7 @@ public class AuthController {
         user.setRoles(roles);
 
         Set<Warehouse> warehouses = new HashSet<>();
-        Warehouse initWarehouse = new Warehouse("Склад "+ user.getFullname(), EWarehouseType.WAREHOUSE_DEFAULT);
+        Warehouse initWarehouse = new Warehouse("Склад "+ user.getFullname(), warehouseTypeRepository.getReferenceById(0));
         warehouses.add(initWarehouse);
         user.setWarehouses(warehouses);
 

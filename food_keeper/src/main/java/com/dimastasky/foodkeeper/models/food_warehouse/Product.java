@@ -7,7 +7,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -49,7 +48,11 @@ public class Product {
     private Double carbs;
 
 //    @NotBlank
-    private Integer weight;
+    private Integer packageWeight;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "product")
+    private Set<WarehouseRecords> warehouseRecords;
 
     public Product() {
 
@@ -63,6 +66,6 @@ public class Product {
         this.fat = fat;
         this.protein = protein;
         this.carbs = carbs;
-        this.weight = weight;
+        this.packageWeight = weight;
     }
 }

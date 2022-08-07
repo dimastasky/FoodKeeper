@@ -7,7 +7,7 @@ import javax.validation.constraints.NotBlank;
 
 @Getter
 @Setter
-public class ProductsCountInWrhsRequest {
+public class WarehouseUserRequest {
     @NotBlank
-    private Integer count;
+    private Long User;
 }

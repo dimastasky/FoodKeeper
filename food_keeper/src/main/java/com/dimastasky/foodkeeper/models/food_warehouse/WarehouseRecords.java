@@ -4,12 +4,13 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
-@Table(name = "warehouse_products")
+@Table(name = "warehouse_records")
 @Getter
 @Setter
-public class WarehouseProducts {
+public class WarehouseRecords {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -23,6 +24,10 @@ public class WarehouseProducts {
     private Product product;
 
     private Integer count;
+
+    private Double weightKg;
+
+    private Date bestBefore;
 
     //TODO: Timestamp дата последнего добавления на склад
 

@@ -10,6 +10,7 @@ import MenuItem from '@mui/material/MenuItem';
 
 
 import ProductsService from "../../services/products.service";
+import ProductTable from "./ProductTable";
 
 const AddProduct = () => {
     const [name, setName] = useState("");
@@ -47,8 +48,6 @@ const AddProduct = () => {
     const onChangeWeight = (e) => {
         setWeight(e.target.value);
     }
-
-
 
     // TODO: Добавить список food type
 
@@ -91,6 +90,16 @@ const AddProduct = () => {
                 (response) => {
                     setMessage(response.data.message);
                     setSuccessful(true);
+                    setLoading(false);
+                    setName("");
+                    setFoodType("");
+                    setEnergy("");
+                    setFat("");
+                    setProtein("");
+                    setCarbs("");
+                    setWeight("");
+                    ProductTable.getAllProducts();
+
                 },
                 (error) => {
                     const resMessage =
@@ -111,100 +120,99 @@ const AddProduct = () => {
         }
     };
 
-
-
-
+    
 
     return (
         <div>
             <Form onSubmit={handleCreate} ref={form}>
-                {!successful && (
-                    <tr>
-                        <td>
-                            <TextField
-                                label="Наименование"
-                                placeholder=""
-                                value={name}
-                                onChange={onChangeName}
-                                type="text"
-                            />
-                        </td>
-                        <td>
-                            <Select
-                                label="Категория"
-                                placeholder=""
-                                options={foodTypeData}
-                                value={foodTypeData.find(obj => obj.value === foodType)}
-                                onChange={onChangeFoodType}
-                            >
-                                {foodTypeData.map((obj) => (
-                                    <MenuItem
-                                        value={obj.value}
-                                        selected={foodTypeData === obj.value}
-                                    >
-                                        {obj.key}
-                                    </MenuItem>
-                                ))}
-                            </Select>
-                        </td>
-                        <td>
-                            <TextField
-                                label="Калории"
-                                placeholder=""
-                                value={energy}
-                                onChange={onChangeEnergy}
-                                type="text"
-                            />
-                        </td>
-                        <td>
-                            <TextField
-                                label="Углеводы"
-                                placeholder=""
-                                value={carbs}
-                                onChange={onChangeCarbs}
-                                type="text"
-                            />
-                        </td>
-                        <td>
-                            <TextField
-                                label="Белки"
-                                placeholder=""
-                                value={protein}
-                                onChange={onChangeProtein}
-                                type="text"
-                            />
-                        </td>
-                        <td>
-                            <TextField
-                                label="Жиры"
-                                placeholder=""
-                                value={fats}
-                                onChange={onChangeFats}
-                                type="text"
-                            />
-                        </td>
-                        <td>
-                            <TextField
-                                label="Вес"
-                                placeholder=""
-                                value={weight}
-                                onChange={onChangeWeight}
-                                type="text"
-                            />
-                        </td>
 
-                        <td>
-                            <LoadingButton
-                                variant="contained"
-                                onClick={handleCreate}
-                                loading={loading}
-                                sx={{ my: 5 }}
-                            >
-                                Добавить
-                            </LoadingButton>
-                        </td>
-                    </tr>
-                )}
+                <tr>
+                    <td>
+                        <TextField
+                            label="Наименование"
+                            placeholder=""
+                            value={name}
+                            onChange={onChangeName}
+                            type="text"
+                        />
+                    </td>
+                    <td>
+                        <Select
+                            label="Категория"
+                            placeholder=""
+                            options={foodTypeData}
+                            value={foodTypeData.find(obj => obj.value === foodType)}
+                            onChange={onChangeFoodType}
+
+                        >
+                            {foodTypeData.map((obj) => (
+                                <MenuItem
+                                    value={obj.value}
+                                    selected={foodTypeData === obj.value}
+                                >
+                                    {obj.key}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </td>
+                    <td>
+                        <TextField
+                            label="Калории"
+                            placeholder=""
+                            value={energy}
+                            onChange={onChangeEnergy}
+                            type="text"
+                        />
+                    </td>
+                    <td>
+                        <TextField
+                            label="Углеводы"
+                            placeholder=""
+                            value={carbs}
+                            onChange={onChangeCarbs}
+                            type="text"
+                        />
+                    </td>
+                    <td>
+                        <TextField
+                            label="Белки"
+                            placeholder=""
+                            value={protein}
+                            onChange={onChangeProtein}
+                            type="text"
+                        />
+                    </td>
+                    <td>
+                        <TextField
+                            label="Жиры"
+                            placeholder=""
+                            value={fats}
+                            onChange={onChangeFats}
+                            type="text"
+                        />
+                    </td>
+                    <td>
+                        <TextField
+                            label="Вес"
+                            placeholder=""
+                            value={weight}
+                            onChange={onChangeWeight}
+                            type="text"
+                        />
+                    </td>
+
+                    <td>
+                        <LoadingButton
+                            variant="contained"
+                            onClick={handleCreate}
+                            loading={loading}
+                            sx={{ my: 5 }}
+                        >
+                            Добавить
+                        </LoadingButton>
+                    </td>
+                </tr>
+
                 {message && (
                     <div className="form-group">
                         <div
@@ -221,6 +229,7 @@ const AddProduct = () => {
             </Form>
         </div>
     );
+
 }
 
 export default AddProduct;
