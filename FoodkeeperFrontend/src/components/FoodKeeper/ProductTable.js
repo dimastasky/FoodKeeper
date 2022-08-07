@@ -95,6 +95,7 @@ const ProductTable = () => {
         </div>
       </div>
       <div className="jumbotron">
+        <h2>Добавить продукт</h2>
         <AddProduct />
       </div>
       <div className="jumbotron">

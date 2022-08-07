@@ -25,6 +25,7 @@ public class Warehouse {
     @Size(max = 50)
     private String name;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "warehouses")
     private Set<User> owners;
 
