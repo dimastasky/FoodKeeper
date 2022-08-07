@@ -5,7 +5,7 @@ import com.dimastasky.foodkeeper.models.food_warehouse.Warehouse;
 import com.dimastasky.foodkeeper.models.food_warehouse.WarehouseRecords;
 import com.dimastasky.foodkeeper.payload.request.foodkeeper.WarehouseRecordRequest;
 import com.dimastasky.foodkeeper.payload.request.foodkeeper.WarehouseRequest;
-import com.dimastasky.foodkeeper.payload.request.foodkeeper.WarehouseUserRequest;
+import com.dimastasky.foodkeeper.payload.request.foodkeeper.CurrentUserRequest;
 import com.dimastasky.foodkeeper.repository.RoleRepository;
 import com.dimastasky.foodkeeper.repository.UserRepository;
 import com.dimastasky.foodkeeper.repository.warehouse.*;
@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -47,6 +48,22 @@ public class WarehouseController {
     @GetMapping("/all-warehouses")
     public List<Warehouse> getAllWarehouses() { return warehouseRepository.findAll(); }
 
+    @GetMapping("/all-user-warehouses")
+    public List<Warehouse> getAllUserWarehouses(@RequestBody CurrentUserRequest userRequest) {
+        List<Warehouse> warehouses = new ArrayList<>();
+        User currentUser = userRepository.getReferenceById(userRequest.getUser());
+        for (Warehouse warehouse : warehouseRepository.findAll()) {
+            if (warehouse.getOwners().contains(currentUser)) {
+                warehouses.add(warehouse);
+            }
+        }
+        if (warehouses.size() > 0) {
+            return warehouses;
+        } else {
+            return null;
+        }
+    }
+
     @GetMapping("/warehouse/{id}")
     public Warehouse getWarehouse(@PathVariable Long id)
     {
@@ -60,7 +77,7 @@ public class WarehouseController {
     }
 
     @DeleteMapping("/warehouse/{id}")
-    public ResponseEntity<?> deleteWarehouse(@PathVariable Long id ,@RequestBody WarehouseUserRequest userRequest) {
+    public ResponseEntity<?> deleteWarehouse(@PathVariable Long id ,@RequestBody CurrentUserRequest userRequest) {
         Warehouse warehouse = warehouseRepository.getReferenceById(id);
         User currentUser = userRepository.getReferenceById(id);
 
@@ -88,7 +105,7 @@ public class WarehouseController {
         return ResponseEntity.ok("Warehouse created.");
     }
 
-    @PostMapping("/warehouse/{id}/newRecord")
+    @PostMapping("/warehouse/{id}/record")
     public ResponseEntity<?> addProductToW(@Valid @RequestBody WarehouseRecordRequest warehouseRecordRequest, @PathVariable Long id) {
         WarehouseRecords warehouseRecords = new WarehouseRecords();
 
@@ -110,7 +127,6 @@ public class WarehouseController {
             return new ResponseEntity<>("Product add Unauthorized.", HttpStatus.UNAUTHORIZED);
         }
     }
-
 
 
 

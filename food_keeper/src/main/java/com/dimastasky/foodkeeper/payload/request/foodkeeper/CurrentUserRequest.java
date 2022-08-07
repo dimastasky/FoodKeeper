@@ -7,7 +7,7 @@ import javax.validation.constraints.NotBlank;
 
 @Getter
 @Setter
-public class WarehouseUserRequest {
+public class CurrentUserRequest {
     @NotBlank
-    private Long User;
+    private Long user;
 }
