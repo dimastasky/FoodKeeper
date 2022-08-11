@@ -24,16 +24,29 @@ Frontend:
 Front:
   1) Перейти в каталог FoodkeeperFrontend;
   2) Установить зависимости:
-  
-```
-npm install
-```
+  ```
+  npm install
+  ```
   3) Запустить проект:
-```
-npm start
-```
+  ```
+  npm start
+  ```
 
 Backend:
+В application.properties:
+  1) Настроить подключение к Базе данных
+  '''
+  spring.datasource.url= jdbc:postgresql://<ip-address>:<port>/<database_name>
+  spring.datasource.username=<username>
+  spring.datasource.password=<password>
+  '''
+  2) Установить секретный ключ для JWT:
+  '''
+    # App props
+  foodkeeper.app.jwtSecret= <jwtSecret>
+  '''
+  
+
   
 Настройка БД
 
