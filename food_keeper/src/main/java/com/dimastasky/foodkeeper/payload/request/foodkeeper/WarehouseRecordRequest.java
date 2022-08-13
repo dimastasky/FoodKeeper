@@ -17,8 +17,6 @@ public class WarehouseRecordRequest {
     @NotBlank
     private Integer count;
 
-    private Double weightKg;
-
     private Date bestBefore;
 
 }

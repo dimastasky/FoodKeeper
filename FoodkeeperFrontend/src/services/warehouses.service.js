@@ -35,15 +35,11 @@ const addRecordToWarehouse = (user_id, warehouse_id, product_id, count, weight, 
     })
 }
 
-const getRecordsFromWarehouse = (user_id, warehouse_id) => {
-    return axios.get(API_URL + "/warehouse/" + warehouse_id + "/records", {
-        user_id,
+const getWarehouseRecords = (user, warehouse_id) => {
+    return axios.post(API_URL + "/warehouse/" + warehouse_id + "/records", {
+        user,
     })
 }
-
-
-
-
 
 
 export default {
@@ -53,6 +49,6 @@ export default {
     createWarehouse,
     deleteWarehouse,
     addRecordToWarehouse,
-    getRecordsFromWarehouse,
-    
+    getWarehouseRecords,
+
 };

@@ -44,7 +44,6 @@ const AllUserWarehousesTable = () => {
         {
             title: "ID",
             dataIndex: 'id',
-            id: '1',
             sorter: (a, b) => a.id - b.id,
             defaultSortOrder: "descend",
             width: '3%'
@@ -58,12 +57,12 @@ const AllUserWarehousesTable = () => {
             dataIndex: ['warehouseType', 'name']
         },
         {
-            title: 'Button Test',
+            title: 'Перейти на склад',
             // key: 'id',
             // record: 'id', 
             dataIndex: 'id',
             render: (text, record) => (
-<Link to={"/foodkeeper/user-warehouses/id/" + record.id}><button type="button" class="btn btn-table"><b>{text}</b></button></Link>
+<Link to={"/foodkeeper/user-warehouses/id/" + record.id}><button type="button" class="btn btn-table"><b>Перейти</b></button></Link>
 
 
             ),

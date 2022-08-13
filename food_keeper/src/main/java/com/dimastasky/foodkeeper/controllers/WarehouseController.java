@@ -125,7 +125,6 @@ public class WarehouseController {
             warehouseRecords.setProduct(productRepository.getReferenceById(warehouseRecordRequest.getProduct()));
             warehouseRecords.setCount(warehouseRecordRequest.getCount());
             warehouseRecords.setBestBefore(warehouseRecordRequest.getBestBefore());
-            warehouseRecords.setWeightKg(warehouseRecordRequest.getWeightKg());
 
             warehouseRecordsRepository.save(warehouseRecords);
 
@@ -136,7 +135,7 @@ public class WarehouseController {
     }
 
     // Получить все записи выбранного склада
-    @GetMapping("/warehouse/{id}/records")
+    @PostMapping("/warehouse/{id}/records")
     public List<WarehouseRecords> getWarehouseRecords(@RequestBody CurrentUserRequest userRequest,
                                                       @PathVariable Long id) {
         List<WarehouseRecords> warehouseRecords = new ArrayList<>();

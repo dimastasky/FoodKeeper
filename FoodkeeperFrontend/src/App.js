@@ -25,7 +25,7 @@ import BoardAdmin from "./components/Boards/BoardAdmin";
 import FoodKeeperButtons from "./components/FoodKeeper/FoodKeeperBoard";
 import ProductTable from "./components/FoodKeeper/ProductTable";
 import AllUserWarehousesTable from "./components/FoodKeeper/AllUserWarehousesTable";
-import UserWarehouseTable from "./components/FoodKeeper/AllUserWarehousesTable";
+import UserWarehouseTable from "./components/FoodKeeper/UserWarehouseTable";
 
 
 // import AuthVerify from "./common/AuthVerify";
