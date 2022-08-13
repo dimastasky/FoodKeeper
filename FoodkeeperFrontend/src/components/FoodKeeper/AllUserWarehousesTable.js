@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "antd/dist/antd.css";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link} from "react-router-dom";
 import { Table } from "antd";
 
 import AuthService from "../../services/auth.service";
@@ -8,7 +8,7 @@ import WarehousesService from "../../services/warehouses.service";
 
 import { AiFillCloseCircle } from "react-icons/ai";
 
-const UserWarehousesTable = () => {
+const AllUserWarehousesTable = () => {
     const [warehouses, setWarehouses] = useState([]);
 
     const [loading, setLoading] = useState(false);
@@ -44,6 +44,7 @@ const UserWarehousesTable = () => {
         {
             title: "ID",
             dataIndex: 'id',
+            id: '1',
             sorter: (a, b) => a.id - b.id,
             defaultSortOrder: "descend",
             width: '3%'
@@ -57,8 +58,16 @@ const UserWarehousesTable = () => {
             dataIndex: ['warehouseType', 'name']
         },
         {
+            title: 'Button Test',
+            // key: 'id',
+            // record: 'id', 
+            dataIndex: 'id',
+            render: (text, record) => (
+<Link to={"/foodkeeper/user-warehouses/id/" + record.id}><button type="button" class="btn btn-table"><b>{text}</b></button></Link>
 
-        }
+
+            ),
+          },
 
     ]
 
@@ -99,4 +108,4 @@ const UserWarehousesTable = () => {
 
 }
 
-export default UserWarehousesTable;
+export default AllUserWarehousesTable;

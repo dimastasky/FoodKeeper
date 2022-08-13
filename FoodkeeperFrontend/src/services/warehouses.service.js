@@ -25,14 +25,23 @@ const deleteWarehouse = (id) => {
     return axios.delete(API_URL + "/warehouse/" + id);
 }
 
-const addProductToWarehouse = (warehouse_id, product_id, count, weight, bestBefore) => {
-    return axios.post(API_URL + "/warehouse/" + warehouse_id + "/record", {
+const addRecordToWarehouse = (user_id, warehouse_id, product_id, count, weight, bestBefore) => {
+    return axios.post(API_URL + "/warehouse/" + warehouse_id + "/add_record", {
+        user_id,
         product_id,
         count,
         weight,
-        bestBefore
+        bestBefore,
     })
 }
+
+const getRecordsFromWarehouse = (user_id, warehouse_id) => {
+    return axios.get(API_URL + "/warehouse/" + warehouse_id + "/records", {
+        user_id,
+    })
+}
+
+
 
 
 
@@ -43,5 +52,7 @@ export default {
     getWarehouse,
     createWarehouse,
     deleteWarehouse,
-    addProductToWarehouse
+    addRecordToWarehouse,
+    getRecordsFromWarehouse,
+    
 };

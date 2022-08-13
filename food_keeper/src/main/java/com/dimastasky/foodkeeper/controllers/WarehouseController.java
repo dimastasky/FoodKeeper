@@ -38,16 +38,18 @@ public class WarehouseController {
     WarehouseRepository warehouseRepository;
 
     @Autowired
-    WarehouseProductsRepository warehouseProductsRepository;
+    WarehouseRecordsRepository warehouseRecordsRepository;
 
     @Autowired
     WarehouseTypeRepository warehouseTypeRepository;
 
     // TODO: Задать права доступа к методам
 
+    //  склады всех пользователей (для админа)
     @GetMapping("/all-warehouses")
     public List<Warehouse> getAllWarehouses() { return warehouseRepository.findAll(); }
 
+    // Склады текущего пользователя
     @PostMapping("/all-user-warehouses")
     public List<Warehouse> getAllUserWarehouses(@RequestBody CurrentUserRequest userRequest) {
         List<Warehouse> warehouses = new ArrayList<>();
@@ -77,9 +79,10 @@ public class WarehouseController {
     }
 
     @DeleteMapping("/warehouse/{id}")
-    public ResponseEntity<?> deleteWarehouse(@PathVariable Long id ,@RequestBody CurrentUserRequest userRequest) {
+    public ResponseEntity<?> deleteWarehouse(@PathVariable Long id,
+                                             @RequestBody CurrentUserRequest userRequest) {
         Warehouse warehouse = warehouseRepository.getReferenceById(id);
-        User currentUser = userRepository.getReferenceById(id);
+        User currentUser = userRepository.getReferenceById(userRequest.getUser());
 
         if (warehouse.getOwners().contains(currentUser)) {
             warehouseRepository.deleteById(id);
@@ -105,12 +108,16 @@ public class WarehouseController {
         return ResponseEntity.ok("Warehouse created.");
     }
 
-    @PostMapping("/warehouse/{id}/record")
-    public ResponseEntity<?> addProductToW(@Valid @RequestBody WarehouseRecordRequest warehouseRecordRequest, @PathVariable Long id) {
+    // Добавить продукт на склад
+    @PostMapping("/warehouse/{id}/add_record")
+    public ResponseEntity<?> addProductToW(@Valid @RequestBody CurrentUserRequest userRequest,
+                                           @RequestBody WarehouseRecordRequest warehouseRecordRequest,
+                                           @PathVariable Long id) {
         WarehouseRecords warehouseRecords = new WarehouseRecords();
 
         Warehouse warehouse = warehouseRepository.getReferenceById(id);
-        User currentUser = userRepository.getReferenceById(id);
+        //todo: user ID ?
+        User currentUser = userRepository.getReferenceById(userRequest.getUser());
 
         //todo: обновление записи, если Продукт и срок годности совпадают
         if (warehouse.getOwners().contains(currentUser)) {
@@ -120,7 +127,7 @@ public class WarehouseController {
             warehouseRecords.setBestBefore(warehouseRecordRequest.getBestBefore());
             warehouseRecords.setWeightKg(warehouseRecordRequest.getWeightKg());
 
-            warehouseProductsRepository.save(warehouseRecords);
+            warehouseRecordsRepository.save(warehouseRecords);
 
             return ResponseEntity.ok("Product added.");
         } else {
@@ -128,6 +135,26 @@ public class WarehouseController {
         }
     }
 
+    // Получить все записи выбранного склада
+    @GetMapping("/warehouse/{id}/records")
+    public List<WarehouseRecords> getWarehouseRecords(@RequestBody CurrentUserRequest userRequest,
+                                                      @PathVariable Long id) {
+        List<WarehouseRecords> warehouseRecords = new ArrayList<>();
+        Warehouse warehouse = warehouseRepository.getReferenceById(id);
+        User currentUser = userRepository.getReferenceById(userRequest.getUser());
+
+        // todo: Оптимизировать запрос, отфильтровать
+        for (WarehouseRecords record : warehouseRecordsRepository.findAll()) {
+            if (warehouse.getOwners().contains(currentUser)) {
+                warehouseRecords.add(record);
+            }
+        }
+        if (warehouseRecords.isEmpty()) {
+            return null;
+        } else {
+            return warehouseRecords;
+        }
+    }
 
 
 

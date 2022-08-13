@@ -119,7 +119,7 @@ h1 {
   color: ghostwhite;
   margin: 0 2% 5% 2%;
   background-image: linear-gradient(#00E5FF, #00FF5B);
-  background-image: linear-gradient(#396afc, #2948ff);
+  /* background-image: linear-gradient(#396afc, #2948ff); */
   border: none;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
@@ -272,9 +272,18 @@ h1 {
 
 }
 
-.btn_table {
-  position: relative;
-  display: inline-flex;
+.btn-table {
+  font-size: 14px;
+  font-weight: 600;
+  display: inline-table;
+  border-radius: 20px;
+  width: 100px;
+  height: 75px;
+  color: ghostwhite;
+  background-image: linear-gradient(#00E5FF, #00FF5B);
+  background-image: linear-gradient(#396afc, #2948ff);
+  border: none;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 
