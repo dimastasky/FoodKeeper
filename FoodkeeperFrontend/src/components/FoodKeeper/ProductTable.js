@@ -69,7 +69,7 @@ const ProductTable = () => {
     },
     {
       title: "Weight",
-      dataIndex: 'weight'
+      dataIndex: 'packageWeight'
     },
     {
       title: "Category",

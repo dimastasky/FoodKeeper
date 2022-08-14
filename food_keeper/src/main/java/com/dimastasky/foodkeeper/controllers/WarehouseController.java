@@ -110,31 +110,6 @@ public class WarehouseController {
         return ResponseEntity.ok("Warehouse created.");
     }
 
-    // Добавить продукт на склад
-    @PostMapping("/warehouse/{id}/add_record")
-    public ResponseEntity<?> addProductToW(@Valid @RequestBody WarehouseRecordRequest warehouseRecordRequest,
-                                           @PathVariable Long id) {
-        WarehouseRecords warehouseRecords = new WarehouseRecords();
-
-        Warehouse warehouse = warehouseRepository.getReferenceById(id);
-        //todo: user ID ?
-        User currentUser = userRepository.getReferenceById(warehouseRecordRequest .getUser());
-
-        //todo: обновление записи, если Продукт и срок годности совпадают
-        if (warehouse.getOwners().contains(currentUser)) {
-            warehouseRecords.setWarehouse(warehouseRepository.getReferenceById(id));
-            warehouseRecords.setProduct(productRepository.getReferenceById(warehouseRecordRequest.getProduct()));
-            warehouseRecords.setCount(warehouseRecordRequest.getCount());
-            warehouseRecords.setBestBefore(warehouseRecordRequest.getBestBefore());
-
-            warehouseRecordsRepository.save(warehouseRecords);
-
-            return ResponseEntity.ok("Product added.");
-        } else {
-            return new ResponseEntity<>("Product add to warehouse is Unauthorized.", HttpStatus.UNAUTHORIZED);
-        }
-    }
-
     // Получить все записи выбранного склада
     @PostMapping("/warehouse/{id}/records")
     public List<WarehouseRecords> getWarehouseRecords(@RequestBody CurrentUserRequest userRequest,
@@ -153,6 +128,34 @@ public class WarehouseController {
             return null;
         } else {
             return warehouseRecords;
+        }
+    }
+
+    // Добавить продукт на склад
+    @PostMapping("/warehouse/{id}/add_record")
+    public ResponseEntity<?> addProductToW(@Valid @RequestBody WarehouseRecordRequest warehouseRecordRequest,
+                                           @PathVariable Long id) {
+        WarehouseRecords warehouseRecords = new WarehouseRecords();
+
+        Warehouse warehouse = warehouseRepository.getReferenceById(id);
+        //todo: user ID ?
+        User currentUser = userRepository.getReferenceById(warehouseRecordRequest .getUser());
+
+
+
+        //todo: обновление записи, если Продукт и срок годности совпадают
+        if (warehouse.getOwners().contains(currentUser)) {
+            warehouseRecords.setWarehouse(warehouseRepository.getReferenceById(id));
+            warehouseRecords.setProduct(productRepository.getReferenceById(warehouseRecordRequest.getProduct()));
+            warehouseRecords.setCount(warehouseRecordRequest.getCount());
+            warehouseRecords.setBestBefore(warehouseRecordRequest.getBestBefore());
+
+
+            warehouseRecordsRepository.save(warehouseRecords);
+
+            return ResponseEntity.ok("Product added.");
+        } else {
+            return new ResponseEntity<>("Product add to warehouse is Unauthorized.", HttpStatus.UNAUTHORIZED);
         }
     }
 
