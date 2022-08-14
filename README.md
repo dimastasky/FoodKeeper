@@ -11,9 +11,43 @@
 - Ведение статистики расхода продуктов, анализ расходов;
 
 ## На данный момент сделано:
+Backend:
 - Система аутентификации;
 - Смоделирована БД;
-- Произведена первичная настройка REST контроллеров
-- Шаблон интерфейса на JS React
+- API для пользовательских складов и продуктов;
+
+Frontend:
+- Шаблон основонго интерфейса;
+- Таблицы с пользовательскими складами и основными продуктами;
+
+## Инструкция по запуску:
+Front:
+  1) Перейти в каталог FoodkeeperFrontend;
+  2) Установить зависимости:
+  ```
+  npm install
+  ```
+  3) Запустить проект:
+  ```
+  npm start
+  ```
+
+Backend:
+В application.properties:
+  1) Настроить подключение к Базе данных
+  '''
+  spring.datasource.url= jdbc:postgresql://<ip-address>:<port>/<database_name>
+  spring.datasource.username=<username>
+  spring.datasource.password=<password>
+  '''
+  2) Установить секретный ключ для JWT:
+  '''
+    # App props
+  foodkeeper.app.jwtSecret= <jwtSecret>
+  '''
+  
+
+  
+Настройка БД
 
 
