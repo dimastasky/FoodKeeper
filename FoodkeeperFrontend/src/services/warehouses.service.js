@@ -25,14 +25,17 @@ const deleteWarehouse = (id) => {
     return axios.delete(API_URL + "/warehouse/" + id);
 }
 
-const addRecordToWarehouse = (user_id, warehouse_id, product_id, count, weight, bestBefore) => {
+const addRecordToWarehouse = (user, warehouse_id, product, count, bestBefore) => {
     return axios.post(API_URL + "/warehouse/" + warehouse_id + "/add_record", {
-        user_id,
-        product_id,
+        user,
+        product,
         count,
-        weight,
         bestBefore,
     })
+    // .then(() => {
+    //     console.log('Added');
+    //     this.props.getWarehouseRecords();
+    // }).catch(error => console.log(error))
 }
 
 const getWarehouseRecords = (user, warehouse_id) => {

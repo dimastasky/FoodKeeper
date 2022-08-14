@@ -28,6 +28,7 @@ public class WarehouseRecords {
 
     private Integer count;
 
+    @Temporal(TemporalType.DATE)
     private Date bestBefore;
 
     //TODO: Timestamp дата последнего добавления на склад

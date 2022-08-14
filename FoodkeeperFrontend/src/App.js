@@ -25,7 +25,7 @@ import BoardAdmin from "./components/Boards/BoardAdmin";
 import FoodKeeperButtons from "./components/FoodKeeper/FoodKeeperBoard";
 import ProductTable from "./components/FoodKeeper/ProductTable";
 import AllUserWarehousesTable from "./components/FoodKeeper/AllUserWarehousesTable";
-import UserWarehouseTable from "./components/FoodKeeper/UserWarehouseTable";
+import UserWarehouseTable from "./components/FoodKeeper/WarehouseRecordsTable";
 
 
 // import AuthVerify from "./common/AuthVerify";
@@ -156,6 +156,7 @@ const App = () => {
           <Route path="/foodkeeper/products" component={ProductTable}/>
           <Route exact path="/foodkeeper/user-warehouses" component={AllUserWarehousesTable}/>
           <Route path="/foodkeeper/user-warehouses/id/:id" component={UserWarehouseTable}/>
+
           {/* 
           <Route path="/mod/users-table" component={ModeratorUsersTable}/>
           <Route path="mod/roles-units-table" component={RolesUnitsTable}/>

@@ -5,16 +5,19 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Getter
 @Setter
 public class WarehouseRecordRequest {
+    @NotNull
+    private Long user;
 
-    @NotBlank
+    @NotNull
     private Long product;
 
-    @NotBlank
+    @NotNull
     private Integer count;
 
     private Date bestBefore;

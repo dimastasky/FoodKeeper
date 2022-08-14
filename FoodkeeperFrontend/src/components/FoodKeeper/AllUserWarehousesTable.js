@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "antd/dist/antd.css";
-import { useHistory, Link} from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { Table } from "antd";
 
 import AuthService from "../../services/auth.service";
@@ -62,11 +62,9 @@ const AllUserWarehousesTable = () => {
             // record: 'id', 
             dataIndex: 'id',
             render: (text, record) => (
-<Link to={"/foodkeeper/user-warehouses/id/" + record.id}><button type="button" class="btn btn-table"><b>Перейти</b></button></Link>
-
-
+                <Link to={"/foodkeeper/user-warehouses/id/" + record.id}><button type="button" class="btn btn-table"><b>Перейти</b></button></Link>
             ),
-          },
+        },
 
     ]
 

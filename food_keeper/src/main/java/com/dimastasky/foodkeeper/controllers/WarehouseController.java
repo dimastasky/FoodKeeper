@@ -45,6 +45,8 @@ public class WarehouseController {
 
     // TODO: Задать права доступа к методам
 
+    // TODO:
+
     //  склады всех пользователей (для админа)
     @GetMapping("/all-warehouses")
     public List<Warehouse> getAllWarehouses() { return warehouseRepository.findAll(); }
@@ -110,14 +112,13 @@ public class WarehouseController {
 
     // Добавить продукт на склад
     @PostMapping("/warehouse/{id}/add_record")
-    public ResponseEntity<?> addProductToW(@Valid @RequestBody CurrentUserRequest userRequest,
-                                           @RequestBody WarehouseRecordRequest warehouseRecordRequest,
+    public ResponseEntity<?> addProductToW(@Valid @RequestBody WarehouseRecordRequest warehouseRecordRequest,
                                            @PathVariable Long id) {
         WarehouseRecords warehouseRecords = new WarehouseRecords();
 
         Warehouse warehouse = warehouseRepository.getReferenceById(id);
         //todo: user ID ?
-        User currentUser = userRepository.getReferenceById(userRequest.getUser());
+        User currentUser = userRepository.getReferenceById(warehouseRecordRequest .getUser());
 
         //todo: обновление записи, если Продукт и срок годности совпадают
         if (warehouse.getOwners().contains(currentUser)) {
@@ -130,7 +131,7 @@ public class WarehouseController {
 
             return ResponseEntity.ok("Product added.");
         } else {
-            return new ResponseEntity<>("Product add Unauthorized.", HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>("Product add to warehouse is Unauthorized.", HttpStatus.UNAUTHORIZED);
         }
     }
 
