@@ -1,13 +1,13 @@
 package com.dimastasky.foodkeeper.controllers;
 
+import com.dimastasky.foodkeeper.models.dto.userDTO.UserDTO;
 import com.dimastasky.foodkeeper.models.account.Role;
 import com.dimastasky.foodkeeper.models.account.User;
 import com.dimastasky.foodkeeper.models.data.ERole;
-import com.dimastasky.foodkeeper.models.data.EWarehouseType;
 import com.dimastasky.foodkeeper.models.food_warehouse.Warehouse;
 import com.dimastasky.foodkeeper.models.food_warehouse.WarehouseType;
-import com.dimastasky.foodkeeper.payload.request.authorization.LoginRequest;
-import com.dimastasky.foodkeeper.payload.request.authorization.SignupRequest;
+import com.dimastasky.foodkeeper.models.dto.userDTO.UserLoginDTO;
+import com.dimastasky.foodkeeper.models.dto.userDTO.UserCreationDTO;
 import com.dimastasky.foodkeeper.payload.response.JwtResponse;
 import com.dimastasky.foodkeeper.payload.response.MessageResponse;
 import com.dimastasky.foodkeeper.repository.RoleRepository;
@@ -21,6 +21,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -63,11 +64,11 @@ public class AuthController {
         return userRepository.findAll();
     }
 
-    @PostMapping("/session")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) throws AWTException {
+    @PostMapping("/login")
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody UserLoginDTO userLoginDTO) throws AWTException {
         Authentication authentication = authenticationManager.authenticate(
 
-                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword())
+                new UsernamePasswordAuthenticationToken(userLoginDTO.getUsername(), userLoginDTO.getPassword())
         );
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -75,7 +76,7 @@ public class AuthController {
 
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         List<String> roles = userDetails.getAuthorities().stream()
-                .map(item -> item.getAuthority())
+                .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(new JwtResponse(jwt,
@@ -88,26 +89,26 @@ public class AuthController {
 
     @PostMapping("/user")
     //@PreAuthorize("hasRole('MODERATOR')") // Убрать, если нужно зарегать модератора
-    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
-        if (userRepository.existsByUsername(signUpRequest.getUsername())) {
+    public ResponseEntity<?> registerUser(@Valid @RequestBody UserCreationDTO signupRequest) {
+        if (userRepository.existsByUsername(signupRequest.getUsername())) {
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Error: Username is already taken!"));
         }
 
-        if (userRepository.existsByEmail(signUpRequest.getEmail())) {
+        if (userRepository.existsByEmail(signupRequest.getEmail())) {
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Error: Email is already in use!"));
         }
 
-        User user = new User(signUpRequest.getUsername(),
-                signUpRequest.getEmail(),
-                signUpRequest.getFullname(),
-                encoder.encode(signUpRequest.getPassword())
+        User user = new User(signupRequest.getUsername(),
+                signupRequest.getEmail(),
+                signupRequest.getFullname(),
+                encoder.encode(signupRequest.getPassword())
                 );
 
-        Set<String> strRoles = signUpRequest.getRole();
+        Set<String> strRoles = signupRequest.getRole();
         Set<Role> roles = new HashSet<>();
 
         if (strRoles == null) {
@@ -139,6 +140,7 @@ public class AuthController {
         }
         user.setRoles(roles);
 
+        // TODO: Убрать инициализацию склада, инициализировать склад отдельно
         Set<Warehouse> warehouses = new HashSet<>();
         WarehouseType warehouseType = warehouseTypeRepository.getReferenceById(1);
         Warehouse initWarehouse = new Warehouse("Склад "+ user.getFullname(), warehouseType);
@@ -150,7 +152,6 @@ public class AuthController {
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
-
 
 
 }

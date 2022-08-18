@@ -10,6 +10,8 @@ import { AiFillCloseCircle } from "react-icons/ai";
 
 import AddProductToWarehouses from "./AddProductToWarehouse";
 
+// todo: Check this as TABLE https://codesandbox.io/s/jqwwuw?file=/demo.js
+
 const UserWarehouseTable = () => {
 
     const [records, setRecords] = useState([]);
@@ -68,8 +70,9 @@ const UserWarehouseTable = () => {
         // todo: Вывести данные food type
         {
             title: "FoodType",
-            dataIndex: ['product', ['foodType', 'name']],
-            dataIndex: 'product.foodtype.name',
+            key: 'product',
+            dataIndex: ['foodtype', 'name'],
+            //dataIndex: 'product.foodtype.name',
         },
         {
             title: "Energy",

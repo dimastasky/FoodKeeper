@@ -39,10 +39,10 @@ const FoodKeeperBoard = () => {
       <div>
         <Link to={"foodkeeper/products"}><button type="button" class="btn btn-secondary">All Products Table</button></Link>
         <Link to={"foodkeeper/user-warehouses"}><button type="button" class="btn btn-secondary">User Warehouses Table</button></Link>
+        {/* <Link to={""}><button type="button" class="btn btn-secondary"></button></Link>
         <Link to={""}><button type="button" class="btn btn-secondary"></button></Link>
         <Link to={""}><button type="button" class="btn btn-secondary"></button></Link>
-        <Link to={""}><button type="button" class="btn btn-secondary"></button></Link>
-        <Link to={""}><button type="button" class="btn btn-secondary"></button></Link>
+        <Link to={""}><button type="button" class="btn btn-secondary"></button></Link> */}
       </div>
     </div>
   )

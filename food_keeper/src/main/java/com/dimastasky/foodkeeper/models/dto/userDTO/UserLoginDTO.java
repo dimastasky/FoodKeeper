@@ -1,5 +1,6 @@
-package com.dimastasky.foodkeeper.payload.request.authorization;
+package com.dimastasky.foodkeeper.models.dto.userDTO;
 
+import com.dimastasky.foodkeeper.models.dto.DTOEntity;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,7 +8,7 @@ import javax.validation.constraints.NotBlank;
 
 @Getter
 @Setter
-public class LoginRequest {
+public class UserLoginDTO implements DTOEntity {
     @NotBlank
     private String username;
 

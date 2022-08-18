@@ -3,9 +3,9 @@ package com.dimastasky.foodkeeper.controllers;
 import com.dimastasky.foodkeeper.models.account.User;
 import com.dimastasky.foodkeeper.models.food_warehouse.Warehouse;
 import com.dimastasky.foodkeeper.models.food_warehouse.WarehouseRecords;
-import com.dimastasky.foodkeeper.payload.request.foodkeeper.WarehouseRecordRequest;
-import com.dimastasky.foodkeeper.payload.request.foodkeeper.WarehouseRequest;
-import com.dimastasky.foodkeeper.payload.request.foodkeeper.CurrentUserRequest;
+import com.dimastasky.foodkeeper.models.dto.WarehouseRecordsDTO.RecordCreationDTO;
+import com.dimastasky.foodkeeper.models.dto.WarehouseDTO.WarehouseCreationDTO;
+import com.dimastasky.foodkeeper.models.dto.userDTO.UserIdDTO;
 import com.dimastasky.foodkeeper.repository.RoleRepository;
 import com.dimastasky.foodkeeper.repository.UserRepository;
 import com.dimastasky.foodkeeper.repository.warehouse.*;
@@ -32,7 +32,7 @@ public class WarehouseController {
     ProductRepository productRepository;
 
     @Autowired
-    FoodTypeRepository foodTypeRepository;
+    ProductTypeRepository productTypeRepository;
 
     @Autowired
     WarehouseRepository warehouseRepository;
@@ -53,9 +53,9 @@ public class WarehouseController {
 
     // Склады текущего пользователя
     @PostMapping("/all-user-warehouses")
-    public List<Warehouse> getAllUserWarehouses(@RequestBody CurrentUserRequest userRequest) {
+    public List<Warehouse> getAllUserWarehouses(@RequestBody UserIdDTO userRequest) {
         List<Warehouse> warehouses = new ArrayList<>();
-        User currentUser = userRepository.getReferenceById(userRequest.getUser());
+        User currentUser = userRepository.getReferenceById(userRequest.getId());
         for (Warehouse warehouse : warehouseRepository.findAll()) {
             if (warehouse.getOwners().contains(currentUser)) {
                 warehouses.add(warehouse);
@@ -82,9 +82,9 @@ public class WarehouseController {
 
     @DeleteMapping("/warehouse/{id}")
     public ResponseEntity<?> deleteWarehouse(@PathVariable Long id,
-                                             @RequestBody CurrentUserRequest userRequest) {
+                                             @RequestBody UserIdDTO userRequest) {
         Warehouse warehouse = warehouseRepository.getReferenceById(id);
-        User currentUser = userRepository.getReferenceById(userRequest.getUser());
+        User currentUser = userRepository.getReferenceById(userRequest.getId());
 
         if (warehouse.getOwners().contains(currentUser)) {
             warehouseRepository.deleteById(id);
@@ -99,11 +99,11 @@ public class WarehouseController {
 
     //-----Создать склад-----
     @PostMapping("/warehouse")
-    public ResponseEntity<?> createWarehouse(@Valid @RequestBody WarehouseRequest warehouseRequest) {
+    public ResponseEntity<?> createWarehouse(@Valid @RequestBody WarehouseCreationDTO warehouseCreationDTO) {
         Warehouse warehouse = new Warehouse();
 
-        warehouse.setName(warehouseRequest.getName());
-        warehouse.setWarehouseType(warehouseTypeRepository.getReferenceById(warehouseRequest.getWarehouseType()));
+        warehouse.setName(warehouseCreationDTO.getName());
+        warehouse.setWarehouseType(warehouseTypeRepository.getReferenceById(warehouseCreationDTO.getWarehouseType()));
 
         warehouseRepository.save(warehouse);
 
@@ -112,11 +112,11 @@ public class WarehouseController {
 
     // Получить все записи выбранного склада
     @PostMapping("/warehouse/{id}/records")
-    public List<WarehouseRecords> getWarehouseRecords(@RequestBody CurrentUserRequest userRequest,
+    public List<WarehouseRecords> getWarehouseRecords(@RequestBody UserIdDTO userRequest,
                                                       @PathVariable Long id) {
         List<WarehouseRecords> warehouseRecords = new ArrayList<>();
         Warehouse warehouse = warehouseRepository.getReferenceById(id);
-        User currentUser = userRepository.getReferenceById(userRequest.getUser());
+        User currentUser = userRepository.getReferenceById(userRequest.getId());
 
         // todo: Оптимизировать запрос, отфильтровать
         for (WarehouseRecords record : warehouseRecordsRepository.findAll()) {
@@ -133,22 +133,22 @@ public class WarehouseController {
 
     // Добавить продукт на склад
     @PostMapping("/warehouse/{id}/add_record")
-    public ResponseEntity<?> addProductToW(@Valid @RequestBody WarehouseRecordRequest warehouseRecordRequest,
+    public ResponseEntity<?> addProductToW(@Valid @RequestBody RecordCreationDTO recordCreationDTO,
                                            @PathVariable Long id) {
         WarehouseRecords warehouseRecords = new WarehouseRecords();
 
         Warehouse warehouse = warehouseRepository.getReferenceById(id);
         //todo: user ID ?
-        User currentUser = userRepository.getReferenceById(warehouseRecordRequest .getUser());
+        User currentUser = userRepository.getReferenceById(recordCreationDTO.getUser());
 
 
 
         //todo: обновление записи, если Продукт и срок годности совпадают
         if (warehouse.getOwners().contains(currentUser)) {
             warehouseRecords.setWarehouse(warehouseRepository.getReferenceById(id));
-            warehouseRecords.setProduct(productRepository.getReferenceById(warehouseRecordRequest.getProduct()));
-            warehouseRecords.setCount(warehouseRecordRequest.getCount());
-            warehouseRecords.setBestBefore(warehouseRecordRequest.getBestBefore());
+            warehouseRecords.setProduct(productRepository.getReferenceById(recordCreationDTO.getProduct()));
+            warehouseRecords.setCount(recordCreationDTO.getQuantity());
+            warehouseRecords.setBestBefore(recordCreationDTO.getBestBefore());
 
 
             warehouseRecordsRepository.save(warehouseRecords);

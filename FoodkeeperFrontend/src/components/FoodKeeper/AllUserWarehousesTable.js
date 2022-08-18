@@ -58,11 +58,12 @@ const AllUserWarehousesTable = () => {
         },
         {
             title: 'Перейти на склад',
-            // key: 'id',
-            // record: 'id', 
             dataIndex: 'id',
             render: (text, record) => (
+                <div>
                 <Link to={"/foodkeeper/user-warehouses/id/" + record.id}><button type="button" class="btn btn-table"><b>Перейти</b></button></Link>
+                <Link to={"/foodkeeper/user-warehouses2/id/" + record.id}><button type="button" class="btn btn-table"><b>Перейти2</b></button></Link>
+                </div>
             ),
         },
 

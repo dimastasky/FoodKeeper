@@ -27,6 +27,8 @@ import ProductTable from "./components/FoodKeeper/ProductTable";
 import AllUserWarehousesTable from "./components/FoodKeeper/AllUserWarehousesTable";
 import UserWarehouseTable from "./components/FoodKeeper/WarehouseRecordsTable";
 
+import WarehouseRecordsTable2 from "./components/FoodKeeper/WarehouseRecordsTable2";
+
 
 // import AuthVerify from "./common/AuthVerify";
 import EventBus from "./common/EventBus";
@@ -156,6 +158,8 @@ const App = () => {
           <Route path="/foodkeeper/products" component={ProductTable}/>
           <Route exact path="/foodkeeper/user-warehouses" component={AllUserWarehousesTable}/>
           <Route path="/foodkeeper/user-warehouses/id/:id" component={UserWarehouseTable}/>
+
+          <Route path="/foodkeeper/user-warehouses2/id/:id" component={WarehouseRecordsTable2}/>
 
           {/* 
           <Route path="/mod/users-table" component={ModeratorUsersTable}/>

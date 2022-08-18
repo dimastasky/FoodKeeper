@@ -1,35 +1,28 @@
-package com.dimastasky.foodkeeper.payload.request.foodkeeper;
+package com.dimastasky.foodkeeper.models.dto.ProductDTO;
 
 
-import com.dimastasky.foodkeeper.models.food_warehouse.FoodType;
+import com.dimastasky.foodkeeper.models.dto.DTOEntity;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import java.util.Set;
 
 // TODO: Написать класс
 @Getter
 @Setter
-public class ProductCreationRequest {
+public class ProductCreationDTO implements DTOEntity {
     @NotBlank
     private String name;
 
     private Integer foodType;
 
-
     private Double energy;
-
 
     private Double fat;
 
-
     private Double protein;
 
-
     private Double carbs;
-
 
     private Double weight;
 }
