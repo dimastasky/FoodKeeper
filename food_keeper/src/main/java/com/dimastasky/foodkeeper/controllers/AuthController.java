@@ -1,6 +1,5 @@
 package com.dimastasky.foodkeeper.controllers;
 
-import com.dimastasky.foodkeeper.models.dto.userDTO.UserDTO;
 import com.dimastasky.foodkeeper.models.account.Role;
 import com.dimastasky.foodkeeper.models.account.User;
 import com.dimastasky.foodkeeper.models.data.ERole;
@@ -66,7 +65,7 @@ public class AuthController {
 
     // todo: Return JWT response OR DTO ?
     @PostMapping("/login")
-    public JwtResponse authenticateUser(@Valid @RequestBody UserLoginDTO userLoginDTO) throws AWTException {
+    public JwtResponse authenticateUser(@Valid @RequestBody UserLoginDTO userLoginDTO) {
         Authentication authentication = authenticationManager.authenticate(
 
                 new UsernamePasswordAuthenticationToken(userLoginDTO.getUsername(), userLoginDTO.getPassword())
