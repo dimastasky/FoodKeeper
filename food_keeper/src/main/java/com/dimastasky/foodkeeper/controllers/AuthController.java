@@ -64,8 +64,9 @@ public class AuthController {
         return userRepository.findAll();
     }
 
+    // todo: Return JWT response OR DTO ?
     @PostMapping("/login")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody UserLoginDTO userLoginDTO) throws AWTException {
+    public JwtResponse authenticateUser(@Valid @RequestBody UserLoginDTO userLoginDTO) throws AWTException {
         Authentication authentication = authenticationManager.authenticate(
 
                 new UsernamePasswordAuthenticationToken(userLoginDTO.getUsername(), userLoginDTO.getPassword())
@@ -79,12 +80,8 @@ public class AuthController {
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
 
-        return ResponseEntity.ok(new JwtResponse(jwt,
-                userDetails.getId(),
-                userDetails.getUsername(),
-                userDetails.getEmail(),
-                userDetails.getFullname(),
-                roles));
+        return new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(), userDetails.getFullname(),
+                userDetails.getEmail(), roles);
     }
 
     @PostMapping("/user")

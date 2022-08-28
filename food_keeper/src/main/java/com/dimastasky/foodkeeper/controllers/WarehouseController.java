@@ -26,13 +26,7 @@ public class WarehouseController {
     UserRepository userRepository;
 
     @Autowired
-    RoleRepository roleRepository;
-
-    @Autowired
     ProductRepository productRepository;
-
-    @Autowired
-    ProductTypeRepository productTypeRepository;
 
     @Autowired
     WarehouseRepository warehouseRepository;
@@ -43,15 +37,9 @@ public class WarehouseController {
     @Autowired
     WarehouseTypeRepository warehouseTypeRepository;
 
-    // TODO: Задать права доступа к методам
-
-    // TODO:
-
-    //  склады всех пользователей (для админа)
     @GetMapping("/all-warehouses")
     public List<Warehouse> getAllWarehouses() { return warehouseRepository.findAll(); }
 
-    // Склады текущего пользователя
     @PostMapping("/all-user-warehouses")
     public List<Warehouse> getAllUserWarehouses(@RequestBody UserIdDTO userRequest) {
         List<Warehouse> warehouses = new ArrayList<>();
@@ -99,7 +87,7 @@ public class WarehouseController {
 
     //-----Создать склад-----
     @PostMapping("/warehouse")
-    public ResponseEntity<?> createWarehouse(@Valid @RequestBody WarehouseCreationDTO warehouseCreationDTO) {
+    public WarehouseCreationDTO createWarehouse(@Valid @RequestBody WarehouseCreationDTO warehouseCreationDTO) {
         Warehouse warehouse = new Warehouse();
 
         warehouse.setName(warehouseCreationDTO.getName());
@@ -107,7 +95,7 @@ public class WarehouseController {
 
         warehouseRepository.save(warehouse);
 
-        return ResponseEntity.ok("Warehouse created.");
+        return warehouseCreationDTO;
     }
 
     // Получить все записи выбранного склада

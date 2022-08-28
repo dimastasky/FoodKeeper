@@ -5,21 +5,16 @@ import EventBus from "../../common/EventBus";
 import AuthService from "../../services/auth.service";
 
 const FoodKeeperBoard = () => {
-  const [content, setContent] = useState("");
-
   const [showModeratorBoard, setShowModeratorBoard] = useState(false);
 
   useEffect(() => {
     const user = AuthService.getCurrentUser();
-
     if (user) {
       setShowModeratorBoard(user.roles.includes("ROLE_MODERATOR"));
     }
-
     EventBus.on("logout", () => {
       logOut();
     });
-
     return () => {
       EventBus.remove("logout");
     };
@@ -39,16 +34,9 @@ const FoodKeeperBoard = () => {
       <div>
         <Link to={"foodkeeper/products"}><button type="button" class="btn btn-secondary">All Products Table</button></Link>
         <Link to={"foodkeeper/user-warehouses"}><button type="button" class="btn btn-secondary">User Warehouses Table</button></Link>
-        {/* <Link to={""}><button type="button" class="btn btn-secondary"></button></Link>
-        <Link to={""}><button type="button" class="btn btn-secondary"></button></Link>
-        <Link to={""}><button type="button" class="btn btn-secondary"></button></Link>
-        <Link to={""}><button type="button" class="btn btn-secondary"></button></Link> */}
       </div>
     </div>
   )
-
-
-
 }
 
 export default FoodKeeperBoard;

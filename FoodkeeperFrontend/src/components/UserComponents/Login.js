@@ -17,32 +17,28 @@ const required = (value) => {
 };
 
 const Login = (props) => {
-  const form = useRef();
-  const checkBtn = useRef();
-
   const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
-
   const onChangeUsername = (e) => {
     const username = e.target.value;
     setUsername(username);
   };
 
+  const [password, setPassword] = useState("");
   const onChangePassword = (e) => {
     const password = e.target.value;
     setPassword(password);
   };
 
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+  const form = useRef();
+  const checkBtn = useRef();
+
   const handleLogin = (e) => {
     e.preventDefault();
-
     setMessage("");
     setLoading(true);
-
     form.current.validateAll();
-
     if (checkBtn.current.context._errors.length === 0) {
       AuthService.login(username, password).then(
         () => {
@@ -56,7 +52,6 @@ const Login = (props) => {
               error.response.data.message) ||
             error.message ||
             error.toString();
-
           setLoading(false);
           setMessage(resMessage);
         }
@@ -69,16 +64,13 @@ const Login = (props) => {
   return (
     <div className="col-md-12 margin5">
       <div className="card card-container">
-
         <div margin5>
           <h2 align="center">Войти</h2>
           <hr align="center" width="100%" size="2" color="red" />
         </div>
-
         <img src={require('./../../logo.png')} width="100%" height="100%"></img>
-
         <Form onSubmit={handleLogin} ref={form}>
-        <hr align="center" width="100%" size="2" color="red" />
+          <hr align="center" width="100%" size="2" color="red" />
           <div className="form-group">
             <label htmlFor="username"><b>Логин</b></label>
             <Input
@@ -91,7 +83,6 @@ const Login = (props) => {
               validations={[required]}
             />
           </div>
-
           <div className="form-group">
             <label htmlFor="password"><b>Пароль</b></label>
             <Input
@@ -104,7 +95,6 @@ const Login = (props) => {
               validations={[required]}
             />
           </div>
-
           <div className="form-group">
             <button className="btn btn-primary btn-block" disabled={loading}>
               {loading && (
@@ -113,7 +103,6 @@ const Login = (props) => {
               <span>Войти</span>
             </button>
           </div>
-
           {message && (
             <div className="form-group">
               <div className="alert alert-danger" role="alert">

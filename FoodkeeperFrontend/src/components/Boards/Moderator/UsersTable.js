@@ -15,10 +15,6 @@ const columns = [
     { field: 'username', headerName: 'Username', width: 200, },
     { field: 'email', headerName: 'E-mail', width: 250, },
     {
-        field: 'units', headerName: 'Подразделение', width: 200,
-        valueGetter: ({ value }) => value.unit_output,
-    },
-    {
         field: 'roles', headerName: 'Роль', width: 200,
         valueGetter: ({value}) => value.name,
     },

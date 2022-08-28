@@ -8,6 +8,7 @@ import com.dimastasky.foodkeeper.models.dto.ProductDTO.ProductCreationDTO;
 import com.dimastasky.foodkeeper.repository.warehouse.ProductTypeRepository;
 import com.dimastasky.foodkeeper.repository.warehouse.ProductRepository;
 import com.dimastasky.foodkeeper.services.ProductService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,8 +33,12 @@ public class ProductsController {
 
     ProductMapper mapper;
 
+    ModelMapper modelMapper = new ModelMapper();
+
     @GetMapping("/all-products")
     public List<ProductDTO> getAllProducts() {
+//        List<Product> products = productRepository.findAll();
+//        modelMapper.map(products, ProductDTO.class);
         return productService.getAll()
                 .stream()
                 .map(mapper::toDto)
@@ -41,7 +46,10 @@ public class ProductsController {
     }
 
     @GetMapping("/product/{id}")
-    public Product getProduct(@PathVariable Long id) { return productRepository.getReferenceById(id); }
+    public ProductDTO getProduct(@PathVariable Long id) {
+        Product product = productRepository.getReferenceById(id);
+        return modelMapper.map(product, ProductDTO.class);
+    }
 
     @DeleteMapping("/product/{id}")
     public ResponseEntity<?> deleteProduct(@PathVariable Long id) {
@@ -50,7 +58,7 @@ public class ProductsController {
     }
 
     @PostMapping("/product")
-    public ResponseEntity<?> createProduct(@Valid @RequestBody ProductCreationDTO productCreationDTO) {
+    public ProductCreationDTO createProduct(@Valid @RequestBody ProductCreationDTO productCreationDTO) {
         Product product = new Product();
 
         product.setName(productCreationDTO.getName());
@@ -63,7 +71,7 @@ public class ProductsController {
 
         productRepository.save(product);
 
-        return ResponseEntity.ok("Product created.");
+        return productCreationDTO;
     }
 
     @GetMapping("/get-foodtypes")
