@@ -12,16 +12,11 @@ const addProduct = (name, foodType, energy, fat, protein, carbs, weight) => {
         name,
         foodType,
         energy,
-        fat, 
+        fat,
         protein,
         carbs,
         weight
     })
-    // .then(() => {
-    //     console.log('Product Added');
-    //     this.props.getAllProducts();
-    // })
-    // .catch(err => console.log(err))
 }
 
 const getFoodTypes = () => {

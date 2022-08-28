@@ -12,7 +12,7 @@ import java.util.Set;
 @Table(name = "foodType")
 @Getter
 @Setter
-public class FoodType {
+public class ProductType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -22,14 +22,14 @@ public class FoodType {
     private EFoodType name;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "foodType")
+    @OneToMany(mappedBy = "productType")
     private Set<Product> type_product;
 
-    public FoodType() {
+    public ProductType() {
 
     }
 
-    public FoodType( EFoodType foodType) {
+    public ProductType(EFoodType foodType) {
         this.name = foodType;
     }
 }

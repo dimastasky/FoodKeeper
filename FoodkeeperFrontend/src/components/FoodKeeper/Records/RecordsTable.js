@@ -3,47 +3,16 @@ import "antd/dist/antd.css";
 import { useHistory, Link, useParams } from "react-router-dom";
 import { Table } from "antd";
 
-import AuthService from "../../services/auth.service";
-import WarehousesService from "../../services/warehouses.service";
+import AuthService from "../../../services/auth.service";
+import WarehousesService from "../../../services/warehouses.service";
 
 import { AiFillCloseCircle } from "react-icons/ai";
 
-import AddProductToWarehouses from "./AddProductToWarehouse";
+import AddProductToWarehouses from "./CreateRecord";
+
+// todo: Check this as TABLE https://codesandbox.io/s/jqwwuw?file=/demo.js
 
 const UserWarehouseTable = () => {
-
-    const [records, setRecords] = useState([]);
-
-    const [loading, setLoading] = useState(false);
-
-    const currentUser = AuthService.getCurrentUser();
-    const requester = currentUser.id;
-
-    const { id } = useParams();
-
-    const getRecords = async () => {
-        try {
-            setLoading(true);
-            const res = await WarehousesService.getWarehouseRecords(requester, id);
-            console.log(res.data);
-            setRecords(res.data);
-            setLoading(false);
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
-    const handleTableChange = (filters, sorter) => {
-        getRecords({
-            sortField: sorter.field,
-            sortOrder: sorter.order,
-            ...filters
-        });
-    };
-
-    useEffect(() => {
-        getRecords(requester)
-    }, [])
 
     const columns = [
         {
@@ -68,8 +37,9 @@ const UserWarehouseTable = () => {
         // todo: Вывести данные food type
         {
             title: "FoodType",
-            dataIndex: ['product', ['foodType', 'name']],
-            dataIndex: 'product.foodtype.name',
+            key: 'product',
+            dataIndex: ['foodtype', 'name'],
+            //dataIndex: 'product.foodtype.name',
         },
         {
             title: "Energy",
@@ -92,6 +62,36 @@ const UserWarehouseTable = () => {
             dataIndex: ['product', 'packageWeight'],
         },
     ]
+
+    const { id } = useParams();
+    // const currentUser = AuthService.getCurrentUser();
+    const requester = AuthService.getCurrentUser().id;
+    const [records, setRecords] = useState([]);
+
+    const [loading, setLoading] = useState(false);
+    const getRecords = async () => {
+        try {
+            setLoading(true);
+            const res = await WarehousesService.getWarehouseRecords(requester, id);
+            console.log(res.data);
+            setRecords(res.data);
+            setLoading(false);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+        getRecords(requester)
+    }, [])
+
+    const handleTableChange = (filters, sorter) => {
+        getRecords({
+            sortField: sorter.field,
+            sortOrder: sorter.order,
+            ...filters
+        });
+    };
 
     let history = useHistory();
 

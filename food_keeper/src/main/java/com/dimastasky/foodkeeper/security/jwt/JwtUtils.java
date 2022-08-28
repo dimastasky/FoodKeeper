@@ -20,6 +20,9 @@ public class JwtUtils {
     @Value("${foodkeeper.app.jwtExpirationMs}")
     private int jwtExpirationMs;
 
+    public JwtUtils() {
+    }
+
     public String generateJwtToken(Authentication authentication) {
 
         UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();

@@ -11,13 +11,12 @@ import "./styles/Create.css"
 import "./styles/media.css"
 
 import AuthService from "./services/auth.service";
-//Начальные страницы для пользователя
+
 import Login from "./components/UserComponents/Login";
 import Register from "./components/UserComponents/Register";
 import Home from "./components/UserComponents/Home";
 import Profile from "./components/UserComponents/Profile";
 
-//Страницы ролей
 import BoardUser from "./components/Boards/BoardUser";
 import BoardModerator from "./components/Boards/Moderator/BoardModerator";
 import BoardAdmin from "./components/Boards/BoardAdmin";
@@ -25,7 +24,9 @@ import BoardAdmin from "./components/Boards/BoardAdmin";
 import FoodKeeperButtons from "./components/FoodKeeper/FoodKeeperBoard";
 import ProductTable from "./components/FoodKeeper/ProductTable";
 import AllUserWarehousesTable from "./components/FoodKeeper/AllUserWarehousesTable";
-import UserWarehouseTable from "./components/FoodKeeper/WarehouseRecordsTable";
+import WarehouseRecordsTable from "./components/FoodKeeper/WarehouseRecordsTable";
+
+import WarehouseRecordsTable2 from "./components/FoodKeeper/WarehouseRecordsTable2";
 
 
 // import AuthVerify from "./common/AuthVerify";
@@ -155,26 +156,9 @@ const App = () => {
           <Route exact path="/foodkeeper" component={FoodKeeperButtons} />
           <Route path="/foodkeeper/products" component={ProductTable}/>
           <Route exact path="/foodkeeper/user-warehouses" component={AllUserWarehousesTable}/>
-          <Route path="/foodkeeper/user-warehouses/id/:id" component={UserWarehouseTable}/>
+          <Route path="/foodkeeper/user-warehouses/id/:id" component={WarehouseRecordsTable}/>
 
-          {/* 
-          <Route path="/mod/users-table" component={ModeratorUsersTable}/>
-          <Route path="mod/roles-units-table" component={RolesUnitsTable}/>
-          <Route exact path="/eventboard" component={BoardEvent} />
-          <Route path="/eventboard/table" component={ButtonEventTable} />
-          <Route path="/eventboard/create-event" component={ButtonCreateEvent} />
-          <Route path="/eventboard/edit-event" component={ButtonEventEdit} />
-          <Route path="/eventboard/event-logs" component={ButtonEventLogs} />
-          <Route exact path="/eventboard/realize-event" component={ButtonEventRealization} />
-          <Route exact path="/eventboard/trace-event" component={ButtonEventTrace} /> */}
-
-          {/* <Route path="/eventboard/realize-event/st1/:id" component={RealizationState1} />
-          <Route path="/eventboard/realize-event/st2/:id" component={RealizationState2} />
-          <Route path="/eventboard/realize-event/st3/:id" component={RealizationState3} />
-
-          <Route path="/eventboard/trace-event/st1/:id" component={CreatorState1} />
-          <Route path="/eventboard/trace-event/st2/:id" component={CreatorState2} /> */}
-
+          <Route path="/foodkeeper/user-warehouses2/id/:id" component={WarehouseRecordsTable2}/>
         </Switch>
       </div>
 

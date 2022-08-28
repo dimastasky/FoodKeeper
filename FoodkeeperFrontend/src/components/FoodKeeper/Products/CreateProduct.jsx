@@ -9,47 +9,45 @@ import Select from '@mui/material/Select';
 import LoadingButton from '@mui/lab/LoadingButton';
 import MenuItem from '@mui/material/MenuItem';
 
-import ProductsService from "../../services/products.service";
-import ProductTable from "./ProductTable";
+import ProductsService from "../../../services/products.service";
+import ProductTable from "../ProductTable";
 
 const AddProduct = () => {
-    const [name, setName] = useState("");
-    const [foodType, setFoodType] = useState("");
-    const [energy, setEnergy] = useState("");
-    const [fats, setFat] = useState("");
-    const [protein, setProtein] = useState("");
-    const [carbs, setCarbs] = useState("");
-    const [weight, setWeight] = useState("");
 
+    const [name, setName] = useState("");
     const onChangeName = (e) => {
         setName(e.target.value);
     }
 
+    const [foodType, setFoodType] = useState("");
     const onChangeFoodType = (e) => {
         setFoodType(e.target.value);
     }
 
+    const [energy, setEnergy] = useState("");
     const onChangeEnergy = (e) => {
         setEnergy(e.target.value);
     }
 
+    const [fats, setFat] = useState("");
     const onChangeFats = (e) => {
         setFat(e.target.value);
     }
 
+    const [protein, setProtein] = useState("");
     const onChangeProtein = (e) => {
         setProtein(e.target.value);
     }
 
+    const [carbs, setCarbs] = useState("");
     const onChangeCarbs = (e) => {
         setCarbs(e.target.value);
     }
 
+    const [weight, setWeight] = useState("");
     const onChangeWeight = (e) => {
         setWeight(e.target.value);
     }
-
-    // TODO: Добавить список food type
 
     const [foodTypeData, setFoodTypeData] = useState([]);
     const getFoodTypeData = async () => {
@@ -65,10 +63,10 @@ const AddProduct = () => {
         setFoodTypeData(foodtypeDataMap)
     }
 
-
     useEffect(() => {
         getFoodTypeData();
     }, [])
+
 
     const [successful, setSuccessful] = useState(false);
     const [message, setMessage] = useState("");
@@ -99,8 +97,6 @@ const AddProduct = () => {
                     setProtein("");
                     setCarbs("");
                     setWeight("");
-                        
-
                 },
                 (error) => {
                     const resMessage =
@@ -120,8 +116,6 @@ const AddProduct = () => {
             setLoading(false);
         }
     };
-
-
 
     return (
         <div>

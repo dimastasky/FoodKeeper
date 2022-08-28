@@ -32,10 +32,6 @@ const addRecordToWarehouse = (user, warehouse_id, product, count, bestBefore) =>
         count,
         bestBefore,
     })
-    // .then(() => {
-    //     console.log('Added');
-    //     this.props.getWarehouseRecords();
-    // }).catch(error => console.log(error))
 }
 
 const getWarehouseRecords = (user, warehouse_id) => {

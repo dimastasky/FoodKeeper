@@ -22,23 +22,19 @@ import authService from "../../services/auth.service";
 const AddProductToWarehouses = () => {
 
     const { id } = useParams();
-
-    const currentUser = authService.getCurrentUser();
-    const requester = currentUser.id;
-
+    // const currentUser = authService.getCurrentUser();
+    const requester = authService.getCurrentUser().id;
     const [product, setProduct] = useState("");
-    const [count, setCount] = useState("");
-    const [bestBefore, setBestBefore] = useState(new Date())
-
-    const onChangeCount = (e) => {
-        setCount(e.target.value);
-    }
-
     const onChangeProduct = (e) => {
         setProduct(e.target.value);
     }
 
+    const [count, setCount] = useState("");
+    const onChangeCount = (e) => {
+        setCount(e.target.value);
+    }
 
+    const [bestBefore, setBestBefore] = useState(new Date())
 
     const [productData, setProductData] = useState([]);
     const getProductData = async () => {
@@ -77,11 +73,10 @@ const AddProductToWarehouses = () => {
                     setMessage(response.data.message);
                     setSuccessful(true);
                     setLoading(false);
-
+                    
                     setProduct("");
                     setCount("");
                     setBestBefore("");
-                    
                 },
                 (error) => {
                     const resMessage =

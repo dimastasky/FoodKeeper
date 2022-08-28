@@ -9,36 +9,6 @@ import AddProduct from "./AddProduct";
 import { AiFillCloseCircle } from "react-icons/ai";
 
 const ProductTable = () => {
-  const [products, setProducts] = useState([]);
-
-  const [loading, setLoading] = useState(false);
-
-  const getAllProducts = async () => {
-    try {
-      setLoading(true);
-      const res = await ProductsService.getAllProducts();
-      console.log(res.data);
-      setProducts(res.data);
-      setLoading(false);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  const handleTableChange = (filters, sorter) => {
-    getAllProducts({
-      sortField: sorter.field,
-      sortOrder: sorter.order,
-      ...filters
-    });
-  };
-
-  useEffect(() => {
-    getAllProducts()
-  }, []);
-
-  // ---------COLUMNS-------
-
   const columns = [
     {
       title: "ID",
@@ -77,6 +47,32 @@ const ProductTable = () => {
     }
   ]
 
+  const [products, setProducts] = useState([]);
+  const getAllProducts = async () => {
+    try {
+      setLoading(true);
+      const res = await ProductsService.getAllProducts();
+      console.log(res.data);
+      setProducts(res.data);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    getAllProducts()
+  }, []);
+
+  const handleTableChange = (filters, sorter) => {
+    getAllProducts({
+      sortField: sorter.field,
+      sortOrder: sorter.order,
+      ...filters
+    });
+  };
+
+  const [loading, setLoading] = useState(false);
   let history = useHistory();
   // TODO: Дизайн кнопки назад; 
   // TODO: Обновление таблицы при изменениях
@@ -110,8 +106,6 @@ const ProductTable = () => {
       </div>
     </div>
   );
-
-
 }
 
 export default ProductTable;

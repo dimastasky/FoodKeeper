@@ -59,36 +59,35 @@ const vpassword = (value) => {
 
 const Register = (props) => {
 
-  const form = useRef();
-  const checkBtn = useRef();
 
   const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [fullname, setFullname] = useState("");
-  const [password, setPassword] = useState("");
-  const [successful, setSuccessful] = useState(false);
-  const [message, setMessage] = useState("");
-
   const onChangeUsername = (e) => {
     const username = e.target.value;
     setUsername(username);
   };
 
+  const [email, setEmail] = useState("");
   const onChangeEmail = (e) => {
     const email = e.target.value;
     setEmail(email);
   };
 
+  const [fullname, setFullname] = useState("");
   const onChangeFullname = (e) => {
     const fullname = e.target.value;
     setFullname(fullname);
-  }
+  };
 
+  const [password, setPassword] = useState("");
   const onChangePassword = (e) => {
     const password = e.target.value;
     setPassword(password);
   };
 
+  const [successful, setSuccessful] = useState(false);
+  const [message, setMessage] = useState("");
+  const form = useRef();
+  const checkBtn = useRef();
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -126,9 +125,7 @@ const Register = (props) => {
           <h2 align="center">Регистрация</h2>
           <hr align="center" width="100%" size="2" color="red" />
         </div>
-
         <img src={require('./../../logo.png')} width="100%" height="100%"></img>
-
         <Form onSubmit={handleRegister} ref={form}>
           <hr align="center" width="100%" size="2" color="red" />
           {!successful && (
@@ -145,7 +142,6 @@ const Register = (props) => {
                   validations={[required, vusername]}
                 />
               </div>
-
               <div className="form-group">
                 <label htmlFor="email"><b>Email</b></label>
                 <Input
@@ -158,7 +154,6 @@ const Register = (props) => {
                   validations={[required, validEmail]}
                 />
               </div>
-
               <div className="form-group">
                 <label htmlFor="fullname"><b>Фамилия Имя Отчество</b></label>
                 <Input
@@ -171,7 +166,6 @@ const Register = (props) => {
                   validations={[required, vfullname]}
                 />
               </div>
-
               <div className="form-group">
                 <label htmlFor="password"><b>Пароль</b></label>
                 <Input
@@ -189,7 +183,6 @@ const Register = (props) => {
               </div>
             </div>
           )}
-
           {message && (
             <div className="form-group">
               <div
@@ -199,7 +192,6 @@ const Register = (props) => {
                 role="alert"
               >
                 {message}
-                
               </div>
               <Link to={"/login"}><button type="button" class="btn btn-secondary"><b>Войти</b></button></Link>
             </div>
