@@ -29,6 +29,7 @@ public class ProductsController {
     @Autowired
     ProductTypeRepository productTypeRepository;
 
+    @Autowired
     ProductService productService;
 
     ProductMapper mapper;
@@ -36,13 +37,8 @@ public class ProductsController {
     ModelMapper modelMapper = new ModelMapper();
 
     @GetMapping("/all-products")
-    public List<ProductDTO> getAllProducts() {
-//        List<Product> products = productRepository.findAll();
-//        modelMapper.map(products, ProductDTO.class);
-        return productService.getAll()
-                .stream()
-                .map(mapper::toDto)
-                .collect(Collectors.toList());
+    public List<Product> getAllProducts() {
+        return productRepository.findAll();
     }
 
     @GetMapping("/product/{id}")

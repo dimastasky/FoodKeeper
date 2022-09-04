@@ -6,9 +6,9 @@ const getAllWarehouses = () => {
     return axios.get(API_URL + "/all-warehouses");
 }
 
-const getAllUserWarehouses = (user) => {
+const getAllUserWarehouses = (userRequest) => {
     return axios.post(API_URL + "/all-user-warehouses", {
-        user
+        userRequest
     });
 }
 

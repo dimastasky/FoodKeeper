@@ -13,11 +13,10 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import ru from 'date-fns/locale/ru';
 
-import ProductsService from "../../services/products.service";
-import WarehouseService from "../../services/warehouses.service"
-import ProductTable from "./ProductTable";
+import ProductsService from "../../../services/products.service";
+import WarehouseService from "../../../services/warehouses.service"
 import { useParams } from "react-router-dom";
-import authService from "../../services/auth.service";
+import authService from "../../../services/auth.service";
 
 const AddProductToWarehouses = () => {
 

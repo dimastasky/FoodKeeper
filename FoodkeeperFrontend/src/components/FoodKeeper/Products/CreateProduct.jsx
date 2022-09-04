@@ -10,7 +10,7 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import MenuItem from '@mui/material/MenuItem';
 
 import ProductsService from "../../../services/products.service";
-import ProductTable from "../ProductTable";
+import ProductTable from "./ProductsTable";
 
 const AddProduct = () => {
 

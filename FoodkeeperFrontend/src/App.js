@@ -21,12 +21,12 @@ import BoardUser from "./components/Boards/BoardUser";
 import BoardModerator from "./components/Boards/Moderator/BoardModerator";
 import BoardAdmin from "./components/Boards/BoardAdmin";
 
-import FoodKeeperButtons from "./components/FoodKeeper/FoodKeeperBoard";
-import ProductTable from "./components/FoodKeeper/ProductTable";
-import AllUserWarehousesTable from "./components/FoodKeeper/AllUserWarehousesTable";
-import WarehouseRecordsTable from "./components/FoodKeeper/WarehouseRecordsTable";
+import FoodKeeperBoard from "./components/FoodKeeper/FoodKeeperBoard";
+import ProductsTable from "./components/FoodKeeper/Products/ProductsTable";
+import UserWarehousesTable from "./components/FoodKeeper/Warehouses/UserWarehousesTable";
 
-import WarehouseRecordsTable2 from "./components/FoodKeeper/WarehouseRecordsTable2";
+import RecordsTable from "./components/FoodKeeper/Records/RecordsTable";
+import RecordsTable2 from "./components/FoodKeeper/Records/RecordsTable2";
 
 
 // import AuthVerify from "./common/AuthVerify";
@@ -153,12 +153,12 @@ const App = () => {
           <Route path="/admin" component={BoardAdmin} />
           <Route exact path="/mod" component={BoardModerator} />
 
-          <Route exact path="/foodkeeper" component={FoodKeeperButtons} />
-          <Route path="/foodkeeper/products" component={ProductTable}/>
-          <Route exact path="/foodkeeper/user-warehouses" component={AllUserWarehousesTable}/>
-          <Route path="/foodkeeper/user-warehouses/id/:id" component={WarehouseRecordsTable}/>
-
-          <Route path="/foodkeeper/user-warehouses2/id/:id" component={WarehouseRecordsTable2}/>
+          <Route exact path="/foodkeeper" component={FoodKeeperBoard} />
+          <Route path="/foodkeeper/products" component={ProductsTable}/>
+          <Route exact path="/foodkeeper/user-warehouses" component={UserWarehousesTable}/>
+          
+          <Route path="/foodkeeper/user-warehouses/id/:id" component={RecordsTable}/>
+          <Route path="/foodkeeper/user-warehouses2/id/:id" component={RecordsTable2}/>
         </Switch>
       </div>
 
