@@ -3,8 +3,8 @@ import "antd/dist/antd.css";
 import { useHistory } from "react-router-dom";
 import { Table } from "antd";
 
-import ProductsService from "../../services/products.service";
-import AddProduct from "./AddProduct";
+import ProductsService from "../../../services/products.service";
+import AddProduct from "./CreateProduct";
 
 import { AiFillCloseCircle } from "react-icons/ai";
 

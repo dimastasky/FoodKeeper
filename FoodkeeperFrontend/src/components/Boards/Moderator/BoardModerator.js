@@ -61,12 +61,10 @@ const BoardModerator = () => {
         <hr align="center" width="100%" size="2" color="red" />
       </div>
       <div>
-        <Link to={"/eventboard/table"}><button type="button" class="btn btn-secondary">Таблица мероприятий</button></Link>
         {showModeratorBoard && 
           <Link to={"/register"}><button type="button" class="btn btn-secondary">Регистрация Пользователей</button></Link>
         }
         <Link to={"/mod/users-table"}><button type="button" class="btn btn-secondary">Таблица пользователей</button></Link>
-        <Link to={"/mod/roles-units-table"}><button type="button" class="btn btn-secondary">Таблица Ролей и подразделений</button></Link>
       </div>
 
     </div>

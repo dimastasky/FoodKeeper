@@ -118,8 +118,8 @@ h1 {
   height: 125px;
   color: ghostwhite;
   margin: 0 2% 5% 2%;
-  background-image: linear-gradient(#00E5FF, #00FF5B);
-  /* background-image: linear-gradient(#396afc, #2948ff); */
+  /* background-image: linear-gradient(#00E5FF, #00FF5B); */
+  background-image: linear-gradient(#396afc, #2948ff);
   border: none;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
@@ -280,7 +280,7 @@ h1 {
   width: 100px;
   height: 75px;
   color: ghostwhite;
-  background-image: linear-gradient(#00E5FF, #00FF5B);
+  /* background-image: linear-gradient(#00E5FF, #00FF5B); */
   background-image: linear-gradient(#396afc, #2948ff);
   border: none;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;

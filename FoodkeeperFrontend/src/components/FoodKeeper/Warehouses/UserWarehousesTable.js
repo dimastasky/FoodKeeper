@@ -37,8 +37,8 @@ const AllUserWarehousesTable = () => {
         },
     ]
 
-    // const currentUser = AuthService.getCurrentUser();
-    const requester = AuthService.getCurrentUser().id;
+    const currentUser = AuthService.getCurrentUser();
+    const requester = currentUser.id;
     const [warehouses, setWarehouses] = useState([]);
 
     const [loading, setLoading] = useState(false);

@@ -19,8 +19,8 @@ import "antd/dist/antd.css";
 import { useHistory, Link, useParams } from "react-router-dom";
 
 
-import AuthService from "../../services/auth.service";
-import WarehousesService from "../../services/warehouses.service";
+import AuthService from "../../../services/auth.service";
+import WarehousesService from "../../../services/warehouses.service";
 
 
 
@@ -75,9 +75,9 @@ const UserWarehouseTable = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {records.map((record) => (
-            <Row key={} row={record} />
-          ))}
+          {/* {records.map((record) => (
+            // <Row key={} row={record} />
+          ))} */}
         </TableBody>
       </Table>
     </TableContainer>

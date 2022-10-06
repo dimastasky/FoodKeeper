@@ -13,11 +13,10 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import ru from 'date-fns/locale/ru';
 
-import ProductsService from "../../services/products.service";
-import WarehouseService from "../../services/warehouses.service"
-import ProductTable from "./ProductTable";
+import ProductsService from "../../../services/products.service";
+import WarehouseService from "../../../services/warehouses.service"
 import { useParams } from "react-router-dom";
-import authService from "../../services/auth.service";
+import authService from "../../../services/auth.service";
 
 const AddProductToWarehouses = () => {
 
@@ -29,13 +28,12 @@ const AddProductToWarehouses = () => {
         setProduct(e.target.value);
     }
 
-    const [count, setCount] = useState("");
-    const onChangeCount = (e) => {
-        setCount(e.target.value);
+    const [quantity, setQuantity] = useState("");
+    const onChangeQuantity = (e) => {
+        setQuantity(e.target.value);
     }
 
     const [bestBefore, setBestBefore] = useState(new Date())
-
     const [productData, setProductData] = useState([]);
     const getProductData = async () => {
         const res = await ProductsService.getAllProducts();
@@ -68,15 +66,15 @@ const AddProductToWarehouses = () => {
 
         form.current.validateAll();
         if (checkBtn.current.context._errors.length === 0) {
-            WarehouseService.addRecordToWarehouse(requester, id, product, count, bestBefore).then(
+            WarehouseService.addRecordToWarehouse(requester, id, product, quantity, bestBefore).then(
                 (response) => {
                     setMessage(response.data.message);
                     setSuccessful(true);
                     setLoading(false);
-                    
                     setProduct("");
-                    setCount("");
-                    setBestBefore("");
+                    setQuantity("");
+                    setBestBefore(new Date());
+                    window.location.reload();
                 },
                 (error) => {
                     const resMessage =
@@ -128,8 +126,8 @@ const AddProductToWarehouses = () => {
                         <TextField
                             label="Количество"
                             placeholder="Количество единиц"
-                            value={count}
-                            onChange={onChangeCount}
+                            value={quantity}
+                            onChange={onChangeQuantity}
                             type="text"
                         />
                     </td>
