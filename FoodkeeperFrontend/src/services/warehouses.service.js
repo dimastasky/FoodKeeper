@@ -6,9 +6,9 @@ const getAllWarehouses = () => {
     return axios.get(API_URL + "/all-warehouses");
 }
 
-const getAllUserWarehouses = (userRequest) => {
+const getAllUserWarehouses = (user) => {
     return axios.post(API_URL + "/all-user-warehouses", {
-        userRequest
+        user
     });
 }
 
@@ -16,20 +16,24 @@ const getWarehouse = (id) => {
     return axios.get(API_URL + "/warehouse/" + id);
 }
 
-const createWarehouse = (id) => {
+
+const createWarehouse = (name, warehouseType) => {
     return axios.post(API_URL + "/warehouse");
 }
 
+const getAllWarehouseTypes = () => {
+    return axios.get(API_URL + "/warehouse-types");
+}
 
 const deleteWarehouse = (id) => {
     return axios.delete(API_URL + "/warehouse/" + id);
 }
 
-const addRecordToWarehouse = (user, warehouse_id, product, count, bestBefore) => {
+const addRecordToWarehouse = (user, warehouse_id, product, quantity, bestBefore) => {
     return axios.post(API_URL + "/warehouse/" + warehouse_id + "/add_record", {
         user,
         product,
-        count,
+        quantity,
         bestBefore,
     })
 }
@@ -49,5 +53,6 @@ export default {
     deleteWarehouse,
     addRecordToWarehouse,
     getWarehouseRecords,
+    getAllWarehouseTypes,
 
 };
