@@ -7,6 +7,7 @@ import AuthService from "../../../services/auth.service";
 import WarehousesService from "../../../services/warehouses.service";
 
 import { AiFillCloseCircle } from "react-icons/ai";
+import CreateWarehouse from "./CreateWarehouse";
 
 const AllUserWarehousesTable = () => {
     const columns = [
@@ -84,7 +85,7 @@ const AllUserWarehousesTable = () => {
             </div>
             <div className="jumbotron">
                 <h2>Добавить склад</h2>
-                {/* <AddProduct /> */}
+                <CreateWarehouse/>
             </div>
             <div className="jumbotron">
                 <Table

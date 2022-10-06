@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "antd/dist/antd.css";
 import { useHistory } from "react-router-dom";
-import { Table } from "antd";
+import { Affix, Table } from "antd";
 
 import ProductsService from "../../../services/products.service";
 import AddProduct from "./CreateProduct";
