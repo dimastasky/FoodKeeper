@@ -115,7 +115,7 @@ public class WarehouseController {
 
         // todo: Оптимизировать запрос, отфильтровать
         for (WarehouseRecords record : warehouseRecordsRepository.findAll()) {
-            if (warehouse.getOwners().contains(currentUser)) {
+            if (warehouse.getWarehouseRecords().contains(record)) {
                 warehouseRecords.add(record);
             }
         }
@@ -135,8 +135,6 @@ public class WarehouseController {
         Warehouse warehouse = warehouseRepository.getReferenceById(id);
         //todo: user ID ?
         User currentUser = userRepository.getReferenceById(recordCreationDTO.getUser());
-
-
 
         //todo: обновление записи, если Продукт и срок годности совпадают
         if (warehouse.getOwners().contains(currentUser)) {
