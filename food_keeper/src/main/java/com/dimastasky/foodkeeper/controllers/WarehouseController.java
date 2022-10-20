@@ -1,14 +1,12 @@
 package com.dimastasky.foodkeeper.controllers;
 
 import com.dimastasky.foodkeeper.models.account.User;
-import com.dimastasky.foodkeeper.models.dto.WarehouseDTO.WarehouseTypeDTO;
 import com.dimastasky.foodkeeper.models.food_warehouse.Warehouse;
 import com.dimastasky.foodkeeper.models.food_warehouse.WarehouseRecords;
-import com.dimastasky.foodkeeper.models.dto.WarehouseRecordsDTO.RecordCreationDTO;
-import com.dimastasky.foodkeeper.models.dto.WarehouseDTO.WarehouseCreationDTO;
-import com.dimastasky.foodkeeper.models.dto.userDTO.UserIdDTO;
+import com.dimastasky.foodkeeper.models.dtos.WarehouseRecordsDTO.RecordCreationDTO;
+import com.dimastasky.foodkeeper.models.dtos.WarehouseDTO.WarehouseCreationDTO;
+import com.dimastasky.foodkeeper.models.dtos.userDTO.UserIdDTO;
 import com.dimastasky.foodkeeper.models.food_warehouse.WarehouseType;
-import com.dimastasky.foodkeeper.repository.RoleRepository;
 import com.dimastasky.foodkeeper.repository.UserRepository;
 import com.dimastasky.foodkeeper.repository.warehouse.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -115,7 +113,7 @@ public class WarehouseController {
 
         // todo: Оптимизировать запрос, отфильтровать
         for (WarehouseRecords record : warehouseRecordsRepository.findAll()) {
-            if (warehouse.getOwners().contains(currentUser)) {
+            if (warehouse.getWarehouseRecords().contains(record)) {
                 warehouseRecords.add(record);
             }
         }
@@ -135,8 +133,6 @@ public class WarehouseController {
         Warehouse warehouse = warehouseRepository.getReferenceById(id);
         //todo: user ID ?
         User currentUser = userRepository.getReferenceById(recordCreationDTO.getUser());
-
-
 
         //todo: обновление записи, если Продукт и срок годности совпадают
         if (warehouse.getOwners().contains(currentUser)) {

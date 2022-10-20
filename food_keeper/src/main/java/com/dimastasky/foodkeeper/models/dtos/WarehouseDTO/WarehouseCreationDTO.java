@@ -1,8 +1,8 @@
-package com.dimastasky.foodkeeper.models.dto.WarehouseDTO;
+package com.dimastasky.foodkeeper.models.dtos.WarehouseDTO;
 
 // TODO: Написать класс
 
-import com.dimastasky.foodkeeper.models.dto.DTOEntity;
+import com.dimastasky.foodkeeper.models.dtos.DTOEntity;
 import lombok.Getter;
 import lombok.Setter;
 

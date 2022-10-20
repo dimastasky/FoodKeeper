@@ -1,13 +1,15 @@
 package com.dimastasky.foodkeeper.controllers;
 
-import com.dimastasky.foodkeeper.models.dto.ProductDTO.ProductDTO;
-import com.dimastasky.foodkeeper.models.dto.ProductDTO.ProductMapper;
+import com.dimastasky.foodkeeper.models.dtos.ProductDTO.ProductDTO;
+import com.dimastasky.foodkeeper.models.dtos.ProductDTO.ProductMapper;
 import com.dimastasky.foodkeeper.models.food_warehouse.ProductType;
 import com.dimastasky.foodkeeper.models.food_warehouse.Product;
-import com.dimastasky.foodkeeper.models.dto.ProductDTO.ProductCreationDTO;
+import com.dimastasky.foodkeeper.models.dtos.ProductDTO.ProductCreationDTO;
 import com.dimastasky.foodkeeper.repository.warehouse.ProductTypeRepository;
 import com.dimastasky.foodkeeper.repository.warehouse.ProductRepository;
-import com.dimastasky.foodkeeper.services.ProductService;
+import com.dimastasky.foodkeeper.services.ProductsService;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,65 +18,44 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/products")
+@AllArgsConstructor
 public class ProductsController {
 
-    @Autowired
-    ProductRepository productRepository;
-
-    @Autowired
-    ProductTypeRepository productTypeRepository;
-
-    @Autowired
-    ProductService productService;
-
-    ProductMapper mapper;
-
-    ModelMapper modelMapper = new ModelMapper();
+    private final ProductsService service;
 
     @GetMapping("/all-products")
     public List<Product> getAllProducts() {
-        return productRepository.findAll();
-    }
-
-    @GetMapping("/product/{id}")
-    public ProductDTO getProduct(@PathVariable Long id) {
-        Product product = productRepository.getReferenceById(id);
-        return modelMapper.map(product, ProductDTO.class);
-    }
-
-    @DeleteMapping("/product/{id}")
-    public ResponseEntity<?> deleteProduct(@PathVariable Long id) {
-        productRepository.deleteById(id);
-        return new ResponseEntity<>("Product with id " + id + " deleted.", HttpStatus.ACCEPTED);
+        return service.findAllProducts();
     }
 
     @PostMapping("/product")
-    public ProductCreationDTO createProduct(@Valid @RequestBody ProductCreationDTO productCreationDTO) {
-        Product product = new Product();
+    public ProductCreationDTO addProduct(@Valid @RequestBody ProductCreationDTO productCreationDTO) {
+        return service.addProduct(productCreationDTO);
+    }
 
-        product.setName(productCreationDTO.getName());
-        product.setProductType(productTypeRepository.getReferenceById(productCreationDTO.getFoodType()));
-        product.setEnergy(productCreationDTO.getEnergy());
-        product.setFat(productCreationDTO.getFat());
-        product.setProtein(productCreationDTO.getProtein());
-        product.setCarbs(productCreationDTO.getCarbs());
-        product.setPackageWeight(productCreationDTO.getWeight());
+    @GetMapping("/product")
+    public ProductDTO getProduct(@RequestParam("id") Long id) {
+        return service.findProductById(id);
+    }
 
-        productRepository.save(product);
+    @PutMapping("/product")
+    public ProductDTO getProduct(@RequestBody ProductDTO productDTO) {
+        return service.findProductById(productDTO.getId());
+    }
 
-        return productCreationDTO;
+    @DeleteMapping("/product")
+    public ResponseEntity<?> deleteProduct(@RequestParam("id") Long id) {
+        service.deleteProductById(id);
+        return new ResponseEntity<>("Product with id " + id + " deleted.", HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/get-foodtypes")
     public List<ProductType> getAllFoodTypes() {
-        return productTypeRepository.findAll();
+        return service.findAllProductTypes();
     }
-
-
 
 }

@@ -1,6 +1,6 @@
 package com.dimastasky.foodkeeper.utils;
 
-import com.dimastasky.foodkeeper.models.dto.DTOEntity;
+import com.dimastasky.foodkeeper.models.dtos.DTOEntity;
 import org.modelmapper.ModelMapper;
 
 public class DTOUtils {

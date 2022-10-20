@@ -1,4 +1,4 @@
-import { InputLabel, useScrollTrigger, FormControl, FormHelperText } from "@mui/material";
+import { InputLabel, FormControl, FormHelperText } from "@mui/material";
 import React, { useState, useRef, useEffect } from "react";
 import CheckButton from "react-validation/build/button";
 import Form from "react-validation/build/form";
@@ -8,14 +8,8 @@ import Select from '@mui/material/Select';
 import LoadingButton from '@mui/lab/LoadingButton';
 import MenuItem from '@mui/material/MenuItem';
 
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
-import ru from 'date-fns/locale/ru';
-
 import WarehouseService from "../../../services/warehouses.service"
-import { useParams } from "react-router-dom";
-import authService from "../../../services/auth.service";
+
 
 const CreateWarehouse = () => {
     const [name, setName] = useState("");

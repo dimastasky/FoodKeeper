@@ -1,6 +1,6 @@
-package com.dimastasky.foodkeeper.models.dto.WarehouseRecordsDTO;
+package com.dimastasky.foodkeeper.models.dtos.WarehouseRecordsDTO;
 
-import com.dimastasky.foodkeeper.models.dto.DTOEntity;
+import com.dimastasky.foodkeeper.models.dtos.DTOEntity;
 import lombok.Getter;
 import lombok.Setter;
 

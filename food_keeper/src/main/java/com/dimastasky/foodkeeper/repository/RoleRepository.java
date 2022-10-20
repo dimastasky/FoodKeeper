@@ -1,6 +1,6 @@
 package com.dimastasky.foodkeeper.repository;
 
-import com.dimastasky.foodkeeper.models.data.ERole;
+import com.dimastasky.foodkeeper.models.enums.ERole;
 import com.dimastasky.foodkeeper.models.account.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
