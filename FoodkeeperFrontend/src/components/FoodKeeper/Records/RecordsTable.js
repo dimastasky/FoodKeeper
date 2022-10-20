@@ -111,10 +111,8 @@ const UserWarehouseTable = () => {
             </div>
             <div className="jumbotron">
                 <h2>Добавить продукт на склад</h2>
-                <AddProductToWarehouses
-                />
+                <AddProductToWarehouses/>
             </div>
-
             <div className="jumbotron">
                 <Table
                     columns={columns}

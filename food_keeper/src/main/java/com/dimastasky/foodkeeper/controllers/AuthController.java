@@ -2,11 +2,11 @@ package com.dimastasky.foodkeeper.controllers;
 
 import com.dimastasky.foodkeeper.models.account.Role;
 import com.dimastasky.foodkeeper.models.account.User;
-import com.dimastasky.foodkeeper.models.data.ERole;
+import com.dimastasky.foodkeeper.models.enums.ERole;
 import com.dimastasky.foodkeeper.models.food_warehouse.Warehouse;
 import com.dimastasky.foodkeeper.models.food_warehouse.WarehouseType;
-import com.dimastasky.foodkeeper.models.dto.userDTO.UserLoginDTO;
-import com.dimastasky.foodkeeper.models.dto.userDTO.UserCreationDTO;
+import com.dimastasky.foodkeeper.models.dtos.userDTO.UserLoginDTO;
+import com.dimastasky.foodkeeper.models.dtos.userDTO.UserCreationDTO;
 import com.dimastasky.foodkeeper.payload.response.JwtResponse;
 import com.dimastasky.foodkeeper.payload.response.MessageResponse;
 import com.dimastasky.foodkeeper.repository.RoleRepository;
@@ -26,7 +26,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.awt.*;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;

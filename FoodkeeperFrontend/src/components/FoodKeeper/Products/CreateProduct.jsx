@@ -10,7 +10,6 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import MenuItem from '@mui/material/MenuItem';
 
 import ProductsService from "../../../services/products.service";
-import ProductTable from "./ProductsTable";
 
 const AddProduct = () => {
 
@@ -54,12 +53,10 @@ const AddProduct = () => {
         const res = await ProductsService.getFoodTypes();
         //console.log(data);
         const data = res.data
-
         const foodtypeDataMap = data.map(obj => ({
             "key": obj.id,
             "value": obj.name
         }))
-
         setFoodTypeData(foodtypeDataMap)
     }
 
@@ -97,55 +94,53 @@ const AddProduct = () => {
                     setProtein("");
                     setCarbs("");
                     setWeight("");
+                    window.location.reload();
                 },
                 (error) => {
-                    const resMessage =
-                        (error.response &&
-                            error.response.data &&
-                            error.response.data.message) ||
+                    const resMessage = (
+                        error.response &&
+                        error.response.data &&
+                        error.response.data.message) ||
                         error.message ||
                         error.toString();
-
                     setLoading(false);
                     setMessage(resMessage);
                     setSuccessful(false);
                 }
             );
-        }
-        else {
+        } else {
             setLoading(false);
         }
     };
 
     return (
         <div>
-            <Form onSubmit={handleCreate} ref={form}>
-
+            <Form onSubmit = {handleCreate} ref = {form}>
                 <tr>
                     <td>
                         <TextField
-                            label="Наименование"
-                            placeholder=""
-                            value={name}
-                            onChange={onChangeName}
-                            type="text"
+                            label = "Наименование"
+                            placeholder = ""
+                            value = {name}
+                            onChange = {onChangeName}
+                            type = "text"
                         />
                     </td>
                     <td>
-                        <FormControl sx={{ m: 0, minWidth: 120 }}>
-                            <InputLabel id="category">Категория</InputLabel>
+                        <FormControl sx = {{ m: 0, minWidth: 120 }}>
+                            <InputLabel id = "category">Категория</InputLabel>
                             <Select
-                                labelId="category"
-                                id="category"
-                                label="Категория"
-                                options={foodTypeData}
-                                value={foodTypeData.find(obj => obj.key === foodType)}
-                                onChange={onChangeFoodType}
+                                labelId = "category"
+                                id = "category"
+                                label = "Категория"
+                                options = {foodTypeData}
+                                value = {foodTypeData.find(obj => obj.key === foodType)}
+                                onChange = {onChangeFoodType}
                             >
                                 {foodTypeData.map((obj) => (
                                     <MenuItem
-                                        value={obj.key}
-                                        selected={foodTypeData === obj.key}
+                                        value = {obj.key}
+                                        selected = {foodTypeData === obj.key}
                                     >
                                         {obj.value}
                                     </MenuItem>
@@ -156,55 +151,55 @@ const AddProduct = () => {
                     </td>
                     <td>
                         <TextField
-                            label="Калории"
-                            placeholder=""
-                            value={energy}
-                            onChange={onChangeEnergy}
-                            type="text"
+                            label = "Калории"
+                            placeholder = ""
+                            value = {energy}
+                            onChange = {onChangeEnergy}
+                            type = "text"
                         />
                     </td>
                     <td>
                         <TextField
-                            label="Углеводы"
-                            placeholder=""
-                            value={carbs}
-                            onChange={onChangeCarbs}
-                            type="text"
+                            label = "Углеводы"
+                            placeholder = ""
+                            value = {carbs}
+                            onChange = {onChangeCarbs}
+                            type = "text"
                         />
                     </td>
                     <td>
                         <TextField
-                            label="Белки"
-                            placeholder=""
-                            value={protein}
-                            onChange={onChangeProtein}
-                            type="text"
+                            label = "Белки"
+                            placeholder = ""
+                            value = {protein}
+                            onChange = {onChangeProtein}
+                            type = "text"
                         />
                     </td>
                     <td>
                         <TextField
-                            label="Жиры"
-                            placeholder=""
-                            value={fats}
-                            onChange={onChangeFats}
-                            type="text"
+                            label = "Жиры"
+                            placeholder = ""
+                            value = {fats}
+                            onChange = {onChangeFats}
+                            type = "text"
                         />
                     </td>
                     <td>
                         <TextField
-                            label="Вес"
-                            placeholder=""
-                            value={weight}
-                            onChange={onChangeWeight}
-                            type="text"
+                            label = "Вес"
+                            placeholder = ""
+                            value = {weight}
+                            onChange = {onChangeWeight}
+                            type = "text"
                         />
                     </td>
                     <td>
                         <LoadingButton
-                            variant="contained"
-                            onClick={handleCreate}
-                            loading={loading}
-                            sx={{ my: 5 }}
+                            variant = "contained"
+                            onClick = {handleCreate}
+                            loading = {loading}
+                            sx = {{ my: 5 }}
                         >
                             Добавить
                         </LoadingButton>
@@ -214,10 +209,10 @@ const AddProduct = () => {
                 {message && (
                     <div className="form-group">
                         <div
-                            className={
+                            className = {
                                 successful ? "alert alert-success" : "alert alert-danger"
                             }
-                            role="alert"
+                            role = "alert"
                         >
                             {message}
                         </div>
@@ -227,7 +222,6 @@ const AddProduct = () => {
             </Form>
         </div>
     );
-
 }
 
 export default AddProduct;
