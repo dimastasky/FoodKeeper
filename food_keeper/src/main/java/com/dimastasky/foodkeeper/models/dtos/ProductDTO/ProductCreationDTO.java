@@ -1,7 +1,7 @@
-package com.dimastasky.foodkeeper.models.dto.ProductDTO;
+package com.dimastasky.foodkeeper.models.dtos.ProductDTO;
 
 
-import com.dimastasky.foodkeeper.models.dto.DTOEntity;
+import com.dimastasky.foodkeeper.models.dtos.DTOEntity;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,16 +13,10 @@ import javax.validation.constraints.NotBlank;
 public class ProductCreationDTO implements DTOEntity {
     @NotBlank
     private String name;
-
-    private Integer foodType;
-
+    private Integer foodTypeId;
     private Double energy;
-
     private Double fat;
-
     private Double protein;
-
     private Double carbs;
-
     private Double weight;
 }

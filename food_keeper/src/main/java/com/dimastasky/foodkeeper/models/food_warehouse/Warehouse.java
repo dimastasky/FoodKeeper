@@ -1,9 +1,7 @@
 package com.dimastasky.foodkeeper.models.food_warehouse;
 
 import com.dimastasky.foodkeeper.models.account.User;
-import com.dimastasky.foodkeeper.models.data.EWarehouseType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JacksonStdImpl;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -1,6 +1,6 @@
 package com.dimastasky.foodkeeper.models.account;
 
-import com.dimastasky.foodkeeper.models.data.ERole;
+import com.dimastasky.foodkeeper.models.enums.ERole;
 import lombok.Getter;
 import lombok.Setter;
 
