@@ -4,7 +4,8 @@ import { useHistory, Link, useParams } from "react-router-dom";
 import { Table } from "antd";
 
 import AuthService from "../../../services/auth.service";
-import WarehousesService from "../../../services/warehouses.service";
+import warehouseService from "../../../services/warehouses.service";
+import recordsService from "../../../services/records.service";
 
 import { AiFillCloseCircle } from "react-icons/ai";
 
@@ -63,16 +64,18 @@ const UserWarehouseTable = () => {
         },
     ]
 
-    const { id } = useParams();
+    const {id} = useParams();
     // const currentUser = AuthService.getCurrentUser();
     const requester = AuthService.getCurrentUser().id;
     const [records, setRecords] = useState([]);
 
     const [loading, setLoading] = useState(false);
-    const getRecords = async () => {
+    const getRecords = async (wId, rId) => {
         try {
             setLoading(true);
-            const res = await WarehousesService.getWarehouseRecords(requester, id);
+            wId = parseInt(wId);
+            const res = await recordsService.getWarehouseRecords(wId, rId);
+            console.log(typeof parseInt(wId));
             console.log(res.data);
             setRecords(res.data);
             setLoading(false);
@@ -82,7 +85,7 @@ const UserWarehouseTable = () => {
     }
 
     useEffect(() => {
-        getRecords(requester)
+        getRecords(id, requester)
     }, [])
 
     const handleTableChange = (filters, sorter) => {

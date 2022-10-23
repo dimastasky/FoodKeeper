@@ -14,7 +14,7 @@ import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import ru from 'date-fns/locale/ru';
 
 import ProductsService from "../../../services/products.service";
-import WarehouseService from "../../../services/warehouses.service"
+import recordsService from "../../../services/records.service";
 import { useParams } from "react-router-dom";
 import authService from "../../../services/auth.service";
 
@@ -66,7 +66,7 @@ const AddProductToWarehouses = () => {
 
         form.current.validateAll();
         if (checkBtn.current.context._errors.length === 0) {
-            WarehouseService.addRecordToWarehouse(requester, id, product, quantity, bestBefore).then(
+            recordsService.addRecordToWarehouse(requester, product, id, quantity, bestBefore).then(
                 (response) => {
                     setMessage(response.data.message);
                     setSuccessful(true);

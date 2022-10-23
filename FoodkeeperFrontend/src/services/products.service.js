@@ -7,10 +7,10 @@ const getAllProducts = () => {
     return axios.get(API_URL + "/all-products");
 };
 
-const addProduct = (name, foodType, energy, fat, protein, carbs, weight) => {
+const addProduct = (name, foodTypeId, energy, fat, protein, carbs, weight) => {
     return axios.post(API_URL + "/product", {
         name,
-        foodType,
+        foodTypeId,
         energy,
         fat,
         protein,
@@ -24,11 +24,11 @@ const getFoodTypes = () => {
 }
 
 const deleteProduct = (id) => {
-    return axios.delete(API_URL + "/product/" + id);
+    return axios.delete(API_URL + "/product?id=" + id);
 }
 
 const getProduct = (id) => {
-    return axios.get(API_URL + "/product/" + id);
+    return axios.get(API_URL + "/product?id=" + id);
 }
 
 export default {

@@ -11,10 +11,13 @@ import java.util.Date;
 @Setter
 public class RecordCreationDTO implements DTOEntity {
     @NotNull
-    private Long user;
+    private Long userId;
 
     @NotNull
-    private Long product;
+    private Long productId;
+
+    @NotNull
+    private Long warehouseId;
 
     @NotNull
     private Integer quantity;

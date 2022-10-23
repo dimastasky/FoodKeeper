@@ -43,7 +43,7 @@ public class ProductsController {
     }
 
     @PutMapping("/product")
-    public ProductDTO getProduct(@RequestBody ProductDTO productDTO) {
+    public ProductDTO editProduct(@RequestBody ProductDTO productDTO) {
         return service.findProductById(productDTO.getId());
     }
 
