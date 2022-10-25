@@ -23,26 +23,32 @@ const ProductTable = () => {
     },
     {
       title: "Energy",
+      sorter: (a, b) => a.energy - b.energy,
       dataIndex: 'energy'
     },
     {
       title: "Carbs",
+      sorter: (a, b) => a.carbs - b.carbs,
       dataIndex: 'carbs'
     },
     {
       title: "Protein",
+      sorter: (a, b) => a.protein - b.protein,
       dataIndex: 'protein'
     },
     {
       title: "Fat",
+      sorter: (a, b) => a.fat - b.fat,
       dataIndex: 'fat'
     },
     {
       title: "Weight",
+      sorter: (a, b) => a.weight - b.weight,
       dataIndex: 'packageWeight'
     },
     {
       title: "Category",
+      sorter: (a, b) => a.foodType.id - b.foodType.id,
       dataIndex: ['foodType', 'name']
     }
   ]

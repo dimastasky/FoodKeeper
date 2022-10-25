@@ -11,6 +11,8 @@ import MenuItem from '@mui/material/MenuItem';
 
 import ProductsService from "../../../services/products.service";
 
+import ProductTable from "./ProductsTable";
+
 const AddProduct = () => {
 
     const [name, setName] = useState("");
@@ -94,7 +96,8 @@ const AddProduct = () => {
                     setProtein("");
                     setCarbs("");
                     setWeight("");
-                    window.location.reload();
+                    ProductsService.getAllProducts();
+                    ProductTable.handleTableChange(false, false);
                 },
                 (error) => {
                     const resMessage = (

@@ -28,7 +28,6 @@ public class WarehouseController {
 
     @PostMapping("/current-user-warehouses")
     public List<Warehouse> getUserWarehouses(@RequestBody UserIdDTO user) {
-        System.out.println("userDTO" + user.getUserId());
         return service.findWarehousesByUserId(user.getUserId());
     }
 

@@ -3,12 +3,11 @@ package com.dimastasky.foodkeeper.services;
 import com.dimastasky.foodkeeper.models.dtos.ProductDTO.ProductCreationDTO;
 import com.dimastasky.foodkeeper.models.dtos.ProductDTO.ProductDTO;
 import com.dimastasky.foodkeeper.models.food_warehouse.Product;
-import com.dimastasky.foodkeeper.models.food_warehouse.ProductType;
+import com.dimastasky.foodkeeper.models.food_warehouse.FoodType;
 import com.dimastasky.foodkeeper.repository.warehouse.ProductRepository;
 import com.dimastasky.foodkeeper.repository.warehouse.ProductTypeRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,7 +28,7 @@ public class ProductsService {
         Product product = new Product();
 
         product.setName(productCreationDTO.getName());
-        product.setProductType(productTypeRepository.getReferenceById(productCreationDTO.getFoodTypeId()));
+        product.setFoodType(productTypeRepository.getReferenceById(productCreationDTO.getFoodTypeId()));
         product.setEnergy(productCreationDTO.getEnergy());
         product.setFat(productCreationDTO.getFat());
         product.setProtein(productCreationDTO.getProtein());
@@ -50,7 +49,7 @@ public class ProductsService {
         Product product = repository.getReferenceById(productDTO.getId());
 
         product.setName(productDTO.getName());
-        product.setProductType(productTypeRepository.getReferenceById(productDTO.getFoodTypeId()));
+        product.setFoodType(productTypeRepository.getReferenceById(productDTO.getFoodTypeId()));
         product.setEnergy(productDTO.getCalories());
         product.setFat(productDTO.getFat());
         product.setProtein(product.getProtein());
@@ -70,7 +69,7 @@ public class ProductsService {
         return repository.findAll();
     }
 
-    public List<ProductType> findAllProductTypes() {
+    public List<FoodType> findAllProductTypes() {
         return productTypeRepository.findAll();
     }
 }

@@ -35,12 +35,11 @@ const UserWarehouseTable = () => {
             title: "Name",
             dataIndex: ['product', 'name'],
         },
-        // todo: Вывести данные food type
         {
             title: "FoodType",
-            key: 'product',
-            dataIndex: ['foodtype', 'name'],
-            //dataIndex: 'product.foodtype.name',
+            sorter: (a, b) => a.id - b.id,
+            defaultSortOrder: "descend",
+            dataIndex: ['product', 'foodType', 'name'],
         },
         {
             title: "Energy",
@@ -64,8 +63,7 @@ const UserWarehouseTable = () => {
         },
     ]
 
-    const {id} = useParams();
-    // const currentUser = AuthService.getCurrentUser();
+    const {id} = useParams(); // Id склада
     const requester = AuthService.getCurrentUser().id;
     const [records, setRecords] = useState([]);
 

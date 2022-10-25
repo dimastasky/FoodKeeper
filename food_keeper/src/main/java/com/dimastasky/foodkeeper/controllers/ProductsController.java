@@ -1,17 +1,11 @@
 package com.dimastasky.foodkeeper.controllers;
 
 import com.dimastasky.foodkeeper.models.dtos.ProductDTO.ProductDTO;
-import com.dimastasky.foodkeeper.models.dtos.ProductDTO.ProductMapper;
-import com.dimastasky.foodkeeper.models.food_warehouse.ProductType;
+import com.dimastasky.foodkeeper.models.food_warehouse.FoodType;
 import com.dimastasky.foodkeeper.models.food_warehouse.Product;
 import com.dimastasky.foodkeeper.models.dtos.ProductDTO.ProductCreationDTO;
-import com.dimastasky.foodkeeper.repository.warehouse.ProductTypeRepository;
-import com.dimastasky.foodkeeper.repository.warehouse.ProductRepository;
 import com.dimastasky.foodkeeper.services.ProductsService;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -54,7 +48,7 @@ public class ProductsController {
     }
 
     @GetMapping("/get-foodtypes")
-    public List<ProductType> getAllFoodTypes() {
+    public List<FoodType> getAllFoodTypes() {
         return service.findAllProductTypes();
     }
 

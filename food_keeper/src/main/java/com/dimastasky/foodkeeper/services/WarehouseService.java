@@ -32,7 +32,6 @@ public class WarehouseService {
     }
 
     public List<Warehouse> findWarehousesByUserId(Long userID) {
-        System.out.println("UserId "+ userID);
         List<Warehouse> warehouses = new ArrayList<>();
         User currentUser = userRepository.getReferenceById(userID);
 

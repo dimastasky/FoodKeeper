@@ -62,7 +62,6 @@ public class AuthController {
         return userRepository.findAll();
     }
 
-    // todo: Return JWT response OR DTO ?
     @PostMapping("/login")
     public JwtResponse authenticateUser(@Valid @RequestBody UserLoginDTO userLoginDTO) {
         Authentication authentication = authenticationManager.authenticate(
