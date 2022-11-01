@@ -5,6 +5,8 @@ import com.dimastasky.foodkeeper.models.dtos.WarehouseRecordsDTO.RecordsDto;
 import com.dimastasky.foodkeeper.models.food_warehouse.WarehouseRecords;
 import com.dimastasky.foodkeeper.services.WarehouseRecordsService;
 import lombok.AllArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -19,12 +21,18 @@ public class WarehouseRecordsController{
     private final WarehouseRecordsService service;
 
     @PostMapping("/get-records")
+    @Cacheable("records")
     public List<WarehouseRecords> getWarehouseRecords(@RequestBody RecordsDto dto) {
         return service.findAllRecords(dto.getWarehouseId(), dto.getUserId());
     }
 
     @PostMapping("/record")
+    @CacheEvict(value = "records", allEntries = true)
     public RecordCreationDTO addProductToW(@Valid @RequestBody RecordCreationDTO recordCreationDTO) {
         return service.addRecordToWarehouse(recordCreationDTO);
     }
+
+    // todo: edit
+    // todo: delete
+    // todo: add one, take one product
 }

@@ -61,4 +61,9 @@ public class WarehouseRecordsService {
 
     }
 
+
+    // todo: edit
+    // todo: delete
+    // todo: add one, take one product
+
 }
