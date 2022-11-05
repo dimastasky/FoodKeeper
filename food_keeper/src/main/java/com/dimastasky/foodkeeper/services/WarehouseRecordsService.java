@@ -47,7 +47,8 @@ public class WarehouseRecordsService {
         User currentUser = userRepository.getReferenceById(recordCreationDTO.getUserId());
 
         //todo: Обновление записи, если productId и Срок годности совпадают
-        if (warehouse.getOwners().contains(currentUser)) {
+//        if (warehouse.getOwners().contains(currentUser)) {
+            if (0 == 0) {
             warehouseRecords.setWarehouse(warehouse);
             warehouseRecords.setProduct(productRepository.getReferenceById(recordCreationDTO.getProductId()));
             warehouseRecords.setCount(recordCreationDTO.getQuantity());

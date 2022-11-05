@@ -38,24 +38,24 @@ public class WarehouseController {
 
     // todo: Создать ограничение на максимальное к-во складов для пользователя
     @PostMapping("/warehouse")
-    public WarehouseCreationDTO createWarehouse(@Valid @RequestBody WarehouseCreationDTO warehouseCreationDTO) {
-        return service.createWarehouse(warehouseCreationDTO);
+    public WarehouseCreationDTO createWarehouse(@Valid @RequestBody WarehouseCreationDTO warehouseCreationDTO, UserIdDTO user) {
+        return service.createWarehouse(warehouseCreationDTO, user);
     }
 
-    @GetMapping("/warehouse")
-    public Warehouse getWarehouse(@RequestParam("id") Long id) {
-        return service.getWarehouseById(id);
-    }
+//    @GetMapping("/warehouse")
+//    public Warehouse getWarehouse(@RequestParam("id") Long id) {
+//        return service.getWarehouseById(id);
+//    }
 
     @PutMapping("/warehouse")
     public WarehouseDTO updateWarehouse(WarehouseDTO warehouseDTO) {
         return service.updateWarehouseById(warehouseDTO);
     }
 
-    @DeleteMapping("/warehouse")
-    public ResponseEntity<?> deleteWarehouse(@RequestParam Long warehouseId,
-                                             @RequestParam Long userId) {
-        return service.deleteWarehouseById(warehouseId, userId);
-    }
+//    @DeleteMapping("/warehouse")
+//    public ResponseEntity<?> deleteWarehouse(@RequestParam Long warehouseId,
+//                                             @RequestParam Long userId) {
+//        return service.deleteWarehouseById(warehouseId, userId);
+//    }
 
 }
