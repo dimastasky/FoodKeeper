@@ -10,5 +10,5 @@ import javax.validation.constraints.NotBlank;
 @Setter
 public class UserIdDTO implements DTOEntity {
     @NotBlank
-    private Long user;
+    private Long userId;
 }

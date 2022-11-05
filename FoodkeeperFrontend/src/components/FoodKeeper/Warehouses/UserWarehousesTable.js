@@ -43,10 +43,10 @@ const AllUserWarehousesTable = () => {
     const [warehouses, setWarehouses] = useState([]);
 
     const [loading, setLoading] = useState(false);
-    const getUserWarehouses = async (user) => {
+    const getUserWarehouses = async (userId) => {
         try {
             setLoading(true);
-            const res = await WarehousesService.getAllUserWarehouses(user);
+            const res = await WarehousesService.getCurrentUserWarehouses(userId);
             console.log(res.data);
             setWarehouses(res.data);
             setLoading(false);

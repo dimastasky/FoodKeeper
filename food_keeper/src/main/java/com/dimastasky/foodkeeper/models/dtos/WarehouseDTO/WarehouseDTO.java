@@ -14,5 +14,5 @@ public class WarehouseDTO implements DTOEntity {
 
     private String name;
 
-    private Set<WarehouseTypeDTO> warehouseType;
+    private Integer warehouseType;
 }
