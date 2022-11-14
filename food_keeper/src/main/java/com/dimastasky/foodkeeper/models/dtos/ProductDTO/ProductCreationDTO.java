@@ -14,9 +14,9 @@ public class ProductCreationDTO implements DTOEntity {
     @NotBlank
     private String name;
     private Integer foodTypeId;
-    private Double energy;
-    private Double fat;
-    private Double protein;
-    private Double carbs;
-    private Double weight;
+    private Float energy;
+    private Float fat;
+    private Float protein;
+    private Float carbs;
+    private Float weight;
 }

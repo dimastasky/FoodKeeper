@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -22,6 +23,6 @@ public class RecordCreationDTO implements DTOEntity {
     @NotNull
     private Integer quantity;
 
-    private Date bestBefore;
+    private LocalDate bestBefore;
 
 }

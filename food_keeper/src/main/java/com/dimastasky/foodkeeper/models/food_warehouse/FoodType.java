@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "foodType")
+@Table(name = "foodTypes")
 @Getter
 @Setter
 public class FoodType {
@@ -20,6 +20,8 @@ public class FoodType {
     @Enumerated(EnumType.STRING)
     @Column(length = 20)
     private EFoodType name;
+
+    //todo: Название категории на русском
 
     @JsonIgnore
     @OneToMany(mappedBy = "foodType")

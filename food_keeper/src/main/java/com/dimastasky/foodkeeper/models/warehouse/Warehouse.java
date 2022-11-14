@@ -1,9 +1,8 @@
-package com.dimastasky.foodkeeper.models.food_warehouse;
+package com.dimastasky.foodkeeper.models.warehouse;
 
-import com.dimastasky.foodkeeper.models.account.User;
+import com.dimastasky.foodkeeper.models.food_warehouse.FoodRecords;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -12,8 +11,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "warehouse")
-@Getter
-@Setter
+@Data
 public class Warehouse {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,7 +28,7 @@ public class Warehouse {
 
     @JsonIgnore
     @OneToMany(mappedBy = "warehouse")
-    private Set<WarehouseRecords> warehouseRecords;
+    private Set<FoodRecords> foodRecords;
 
 
     public Warehouse() {

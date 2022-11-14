@@ -22,11 +22,12 @@ const getWarehouse = (id) => {
 }
 
 
-const createWarehouse = (name, warehouseType) => {
+const createWarehouse = (name, warehouseType, userId) => {
     return axios.post(API_URL + "/warehouse",
     {
         name,
-        warehouseType
+        warehouseType,
+        userId
     });
 }
 

@@ -1,20 +1,16 @@
 package com.dimastasky.foodkeeper.services;
 
-import com.dimastasky.foodkeeper.models.account.User;
 import com.dimastasky.foodkeeper.models.dtos.WarehouseDTO.WarehouseCreationDTO;
 import com.dimastasky.foodkeeper.models.dtos.WarehouseDTO.WarehouseDTO;
-import com.dimastasky.foodkeeper.models.dtos.userDTO.UserIdDTO;
-import com.dimastasky.foodkeeper.models.food_warehouse.UserWarehouse;
-import com.dimastasky.foodkeeper.models.food_warehouse.Warehouse;
-import com.dimastasky.foodkeeper.models.food_warehouse.WarehouseType;
-import com.dimastasky.foodkeeper.repository.UserRepository;
+import com.dimastasky.foodkeeper.models.warehouse.UserWarehouse;
+import com.dimastasky.foodkeeper.models.warehouse.Warehouse;
+import com.dimastasky.foodkeeper.models.warehouse.WarehouseType;
+import com.dimastasky.foodkeeper.repository.user.UserRepository;
 import com.dimastasky.foodkeeper.repository.warehouse.UserWarehouseRepository;
 import com.dimastasky.foodkeeper.repository.warehouse.WarehouseRepository;
 import com.dimastasky.foodkeeper.repository.warehouse.WarehouseTypeRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.stereotype.Service;
 
@@ -38,16 +34,11 @@ public class WarehouseService {
 
     public List<Warehouse> findWarehousesByUserId(Long userId) {
         List<Warehouse> warehouses = new ArrayList<>();
-        User currentUser = userRepository.getReferenceById(userId);
-
-
+        // todo: оптимизировать поиск
         for (UserWarehouse userWarehouse : userWarehouseRepository.findAll()) {
             if (userWarehouse.getId().getUserId().equals(userId)) {
-                Warehouse warehouse = warehouseRepository.getReferenceById(userWarehouse.getId().getWarehouseId());
+                Warehouse warehouse = warehouseRepository.findById(userWarehouse.getId().getWarehouseId()).get();
                 warehouses.add(warehouse);
-                System.out.println("warehouse : " + warehouseRepository.getReferenceById(userWarehouse.getId().getWarehouseId()));
-                System.out.println("name: " + warehouseRepository.getReferenceById(userWarehouse.getId().getWarehouseId()).getName());
-                System.out.println("id: " + userWarehouse.getId().getWarehouseId());
             }
         }
 
@@ -65,11 +56,13 @@ public class WarehouseService {
     @Autowired
     AuthenticationManager authenticationManager;
 
-    public WarehouseCreationDTO createWarehouse(WarehouseCreationDTO warehouseCreationDTO, UserIdDTO user) {
+    public WarehouseCreationDTO createWarehouse(WarehouseCreationDTO warehouseCreationDTO) {
         Warehouse warehouse = new Warehouse();
         warehouse.setName(warehouseCreationDTO.getName());
         warehouse.setWarehouseType(warehouseTypeRepository.getReferenceById(warehouseCreationDTO.getWarehouseType()));
         warehouseRepository.save(warehouse);
+        UserWarehouse userWarehouse = new UserWarehouse(warehouseCreationDTO.getUserId(), warehouse.getId());
+        userWarehouseRepository.save(userWarehouse);
 
         return warehouseCreationDTO;
     }
@@ -99,6 +92,7 @@ public class WarehouseService {
 //        Warehouse warehouse = warehouseRepository.getReferenceById(warehouseId);
 //        User currentUser = userRepository.getReferenceById(userId);
 //
+//
 //        if (warehouse.getOwners().contains(currentUser)) {
 //            warehouseRepository.deleteById(warehouseId);
 //            return new ResponseEntity<>("Warehouse with id " + warehouseId + " deleted.", HttpStatus.ACCEPTED);
@@ -106,9 +100,5 @@ public class WarehouseService {
 //            return new ResponseEntity<>("Not your warehouse", HttpStatus.UNAUTHORIZED);
 //        }
 //    }
-
-
-
-
 
 }

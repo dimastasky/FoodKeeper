@@ -2,12 +2,11 @@ package com.dimastasky.foodkeeper.controllers;
 
 import com.dimastasky.foodkeeper.models.dtos.WarehouseDTO.WarehouseDTO;
 import com.dimastasky.foodkeeper.models.dtos.userDTO.UserIdDTO;
-import com.dimastasky.foodkeeper.models.food_warehouse.Warehouse;
+import com.dimastasky.foodkeeper.models.warehouse.Warehouse;
 import com.dimastasky.foodkeeper.models.dtos.WarehouseDTO.WarehouseCreationDTO;
-import com.dimastasky.foodkeeper.models.food_warehouse.WarehouseType;
+import com.dimastasky.foodkeeper.models.warehouse.WarehouseType;
 import com.dimastasky.foodkeeper.services.WarehouseService;
 import lombok.AllArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -38,8 +37,8 @@ public class WarehouseController {
 
     // todo: Создать ограничение на максимальное к-во складов для пользователя
     @PostMapping("/warehouse")
-    public WarehouseCreationDTO createWarehouse(@Valid @RequestBody WarehouseCreationDTO warehouseCreationDTO, UserIdDTO user) {
-        return service.createWarehouse(warehouseCreationDTO, user);
+    public WarehouseCreationDTO createWarehouse(@Valid @RequestBody WarehouseCreationDTO warehouseCreationDTO) {
+        return service.createWarehouse(warehouseCreationDTO);
     }
 
 //    @GetMapping("/warehouse")

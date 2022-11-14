@@ -7,11 +7,16 @@ import TextField from '@mui/material/TextField';
 import Select from '@mui/material/Select';
 import LoadingButton from '@mui/lab/LoadingButton';
 import MenuItem from '@mui/material/MenuItem';
+import authService from "../../../services/auth.service";
 
 import WarehouseService from "../../../services/warehouses.service"
 
 
 const CreateWarehouse = () => {
+
+
+    const requester = authService.getCurrentUser().id;
+    
     const [name, setName] = useState("");
     const onChangeName = (e) => {
         setName(e.target.value);
@@ -54,7 +59,7 @@ const CreateWarehouse = () => {
         form.current.validateAll();
 
         if (checkBtn.current.context._errors.length === 0) {
-            WarehouseService.createWarehouse(name, warehouseType).then(
+            WarehouseService.createWarehouse(name, warehouseType, requester).then(
                 (response) => {
                     setMessage(response.data.message);
                     setSuccessful(true);

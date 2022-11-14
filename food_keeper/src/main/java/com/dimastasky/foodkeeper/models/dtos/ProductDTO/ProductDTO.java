@@ -14,14 +14,14 @@ public class ProductDTO implements DTOEntity {
     @NotBlank
     private String name;
     private Integer foodTypeId;
-    private Double calories;
-    private Double fat;
-    private Double protein;
-    private Double carbs;
-    private Double weight;
+    private Float calories;
+    private Float fat;
+    private Float protein;
+    private Float carbs;
+    private Float weight;
 
-    public ProductDTO(Long id, String name, Integer foodTypeId, Double calories,
-                      Double fat, Double protein, Double carbs, Double weight) {
+    public ProductDTO(Long id, String name, Integer foodTypeId, Float calories,
+                      Float fat, Float protein, Float carbs, Float weight) {
         this.id = id;
         this.name = name;
         this.foodTypeId = foodTypeId;

@@ -1,4 +1,4 @@
-package com.dimastasky.foodkeeper.repository.warehouse;
+package com.dimastasky.foodkeeper.repository.food;
 
 import com.dimastasky.foodkeeper.models.enums.EFoodType;
 import com.dimastasky.foodkeeper.models.food_warehouse.FoodType;
@@ -9,5 +9,5 @@ import java.util.Optional;
 
 @Repository
 public interface ProductTypeRepository extends JpaRepository<FoodType, Integer> {
-    Optional<FoodType> findByName(EFoodType name);
+    //Optional<FoodType> findByName(EFoodType name);
 }

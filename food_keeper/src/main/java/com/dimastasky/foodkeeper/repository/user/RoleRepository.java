@@ -1,4 +1,4 @@
-package com.dimastasky.foodkeeper.repository;
+package com.dimastasky.foodkeeper.repository.user;
 
 import com.dimastasky.foodkeeper.models.enums.ERole;
 import com.dimastasky.foodkeeper.models.account.Role;

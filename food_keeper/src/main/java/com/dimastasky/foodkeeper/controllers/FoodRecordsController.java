@@ -2,8 +2,8 @@ package com.dimastasky.foodkeeper.controllers;
 
 import com.dimastasky.foodkeeper.models.dtos.WarehouseRecordsDTO.RecordCreationDTO;
 import com.dimastasky.foodkeeper.models.dtos.WarehouseRecordsDTO.RecordsDto;
-import com.dimastasky.foodkeeper.models.food_warehouse.WarehouseRecords;
-import com.dimastasky.foodkeeper.services.WarehouseRecordsService;
+import com.dimastasky.foodkeeper.models.food_warehouse.FoodRecords;
+import com.dimastasky.foodkeeper.services.FoodRecordsService;
 import lombok.AllArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -16,14 +16,14 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/warehouse/records")
 @AllArgsConstructor
-public class WarehouseRecordsController{
+public class FoodRecordsController {
 
-    private final WarehouseRecordsService service;
+    private final FoodRecordsService service;
 
     @PostMapping("/get-records")
     @Cacheable("records")
-    public List<WarehouseRecords> getWarehouseRecords(@RequestBody RecordsDto dto) {
-        return service.findAllRecords(dto.getWarehouseId(), dto.getUserId());
+    public List<FoodRecords> getWarehouseRecords(@RequestBody RecordsDto dto) {
+        return service.findAllRecords(dto.getWarehouseId());
     }
 
     @PostMapping("/record")

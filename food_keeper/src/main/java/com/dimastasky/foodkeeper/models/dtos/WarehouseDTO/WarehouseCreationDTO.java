@@ -20,4 +20,6 @@ public class WarehouseCreationDTO implements DTOEntity {
     @NotNull
     private Integer warehouseType;
 
+    private Long userId;
+
 }

@@ -9,11 +9,11 @@ public class ProductMapper {
         Long id = product.getId();
         String name = product.getName();
         Integer foodTypeId = product.getFoodType().getId();
-        Double calories = product.getEnergy();
-        Double fat = product.getFat();
-        Double protein = product.getProtein();
-        Double carbs = product.getCarbs();
-        Double weight = product.getPackageWeight();
+        Float calories = product.getEnergy();
+        Float fat = product.getFat();
+        Float protein = product.getProtein();
+        Float carbs = product.getCarbs();
+        Float weight = product.getPackageWeight();
         return new ProductDTO(id, name, foodTypeId, calories,
                                 fat, protein, carbs, weight);
     }

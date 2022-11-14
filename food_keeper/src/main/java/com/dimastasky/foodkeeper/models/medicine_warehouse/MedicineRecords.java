@@ -1,17 +1,18 @@
-package com.dimastasky.foodkeeper.models.food_warehouse;
+package com.dimastasky.foodkeeper.models.medicine_warehouse;
 
+import com.dimastasky.foodkeeper.models.warehouse.Warehouse;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
-@Table(name = "warehouse_records")
+@Table(name = "medicine_records")
 @Getter
 @Setter
-public class WarehouseRecords {
+public class MedicineRecords {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,17 +22,15 @@ public class WarehouseRecords {
     @JoinColumn(name = "warehouse_id", referencedColumnName = "id")
     private Warehouse warehouse;
 
-//    @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "product_id", referencedColumnName = "id")
-    private Product product;
+    @JoinColumn(name = "medicine_id", referencedColumnName = "id")
+    private Medicine medicine;
 
     private Integer count;
 
     @Temporal(TemporalType.DATE)
-    private Date bestBefore;
+    private LocalDate expirationDate;
 
-    //TODO: Timestamp дата последнего добавления на склад
-
-
+    @Temporal(TemporalType.TIMESTAMP)
+    private LocalDate timestamp;
 }

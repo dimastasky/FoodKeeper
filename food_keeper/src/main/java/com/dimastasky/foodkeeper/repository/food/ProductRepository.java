@@ -1,4 +1,4 @@
-package com.dimastasky.foodkeeper.repository.warehouse;
+package com.dimastasky.foodkeeper.repository.food;
 
 import com.dimastasky.foodkeeper.models.food_warehouse.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,7 +11,4 @@ import java.util.Optional;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long>,
         JpaSpecificationExecutor<Product> {
-    //Optional<Product> findById(Long id);
-    //List<Product> findAll();
-
 }

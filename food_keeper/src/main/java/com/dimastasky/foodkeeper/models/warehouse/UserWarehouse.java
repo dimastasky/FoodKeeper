@@ -1,4 +1,4 @@
-package com.dimastasky.foodkeeper.models.food_warehouse;
+package com.dimastasky.foodkeeper.models.warehouse;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
