@@ -1,7 +1,7 @@
 package com.dimastasky.foodkeeper.services;
 
-import com.dimastasky.foodkeeper.models.dtos.WarehouseDTO.WarehouseCreationDTO;
-import com.dimastasky.foodkeeper.models.dtos.WarehouseDTO.WarehouseDTO;
+import com.dimastasky.foodkeeper.models.dtos.warehouse_dto.WarehouseCreationDTO;
+import com.dimastasky.foodkeeper.models.dtos.warehouse_dto.WarehouseDTO;
 import com.dimastasky.foodkeeper.models.warehouse.UserWarehouse;
 import com.dimastasky.foodkeeper.models.warehouse.Warehouse;
 import com.dimastasky.foodkeeper.models.warehouse.WarehouseType;

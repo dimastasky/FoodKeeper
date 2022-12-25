@@ -24,8 +24,11 @@ public class MedicineRecordsService {
     public List<MedicineRecords> findAllRecords(Long warehouseId) {
         List<MedicineRecords> medicineRecords = new ArrayList<>();
         Warehouse warehouse = warehouseRepository.getReferenceById(warehouseId);
-
         //todo: Оптимизировать запрос,
         return medRecordsRepository.findAllByWarehouseId(warehouseId);
     }
+
+
+
+
 }

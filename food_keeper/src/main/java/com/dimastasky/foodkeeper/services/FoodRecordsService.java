@@ -1,7 +1,7 @@
 package com.dimastasky.foodkeeper.services;
 
 import com.dimastasky.foodkeeper.models.account.User;
-import com.dimastasky.foodkeeper.models.dtos.WarehouseRecordsDTO.RecordCreationDTO;
+import com.dimastasky.foodkeeper.models.dtos.product_records_dto.ProductRecCreationDTO;
 import com.dimastasky.foodkeeper.models.warehouse.Warehouse;
 import com.dimastasky.foodkeeper.models.food_warehouse.FoodRecords;
 import com.dimastasky.foodkeeper.repository.user.UserRepository;
@@ -41,22 +41,24 @@ public class FoodRecordsService {
         }
     }
 
-    public RecordCreationDTO addRecordToWarehouse(RecordCreationDTO recordCreationDTO) {
+    public ProductRecCreationDTO addRecordToWarehouse(ProductRecCreationDTO productRecord) {
         FoodRecords foodRecords = new FoodRecords();
-        Warehouse warehouse = warehouseRepository.getReferenceById(recordCreationDTO.getWarehouseId());
-        User currentUser = userRepository.getReferenceById(recordCreationDTO.getUserId());
+        Warehouse warehouse = warehouseRepository.getReferenceById(productRecord.getWarehouseId());
+        User currentUser = userRepository.getReferenceById(productRecord.getUserId());
 
         //todo: Обновление записи, если productId и Срок годности совпадают
 //        if (warehouse.getOwners().contains(currentUser)) {
             foodRecords.setWarehouse(warehouse);
-            foodRecords.setProduct(productRepository.getReferenceById(recordCreationDTO.getProductId()));
-            foodRecords.setCount(recordCreationDTO.getQuantity());
-            foodRecords.setBestBefore(recordCreationDTO.getBestBefore());
+            foodRecords.setProduct(productRepository.getReferenceById(productRecord.getProductId()));
+            foodRecords.setCount(productRecord.getQuantity());
+            foodRecords.setBestBefore(productRecord.getBestBefore());
 
             foodRecordsRepository.save(foodRecords);
-            return recordCreationDTO;
+            return productRecord;
 
     }
+
+
 
 
     // todo: edit

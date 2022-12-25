@@ -1,7 +1,7 @@
 package com.dimastasky.foodkeeper.controllers;
 
-import com.dimastasky.foodkeeper.models.dtos.WarehouseRecordsDTO.RecordCreationDTO;
-import com.dimastasky.foodkeeper.models.dtos.WarehouseRecordsDTO.RecordsDto;
+import com.dimastasky.foodkeeper.models.dtos.product_records_dto.ProductRecCreationDTO;
+import com.dimastasky.foodkeeper.models.dtos.product_records_dto.ProductRecordsDto;
 import com.dimastasky.foodkeeper.models.food_warehouse.FoodRecords;
 import com.dimastasky.foodkeeper.services.FoodRecordsService;
 import lombok.AllArgsConstructor;
@@ -22,14 +22,14 @@ public class FoodRecordsController {
 
     @PostMapping("/get-records")
     @Cacheable("records")
-    public List<FoodRecords> getWarehouseRecords(@RequestBody RecordsDto dto) {
+    public List<FoodRecords> getWarehouseRecords(@RequestBody ProductRecordsDto dto) {
         return service.findAllRecords(dto.getWarehouseId());
     }
 
     @PostMapping("/record")
     @CacheEvict(value = "records", allEntries = true)
-    public RecordCreationDTO addProductToW(@Valid @RequestBody RecordCreationDTO recordCreationDTO) {
-        return service.addRecordToWarehouse(recordCreationDTO);
+    public ProductRecCreationDTO addProductToW(@Valid @RequestBody ProductRecCreationDTO productRecord) {
+        return service.addRecordToWarehouse(productRecord);
     }
 
     // todo: edit

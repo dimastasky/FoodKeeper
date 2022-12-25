@@ -10,6 +10,10 @@ import java.util.List;
 
 public interface MedicineRecordsRepository extends JpaRepository<MedicineRecords, Long> {
 
-    @Query(value = "select mr from com.dimastasky.foodkeeper.models.medicine_warehouse.MedicineRecords mr where mr.warehouse = :warehouseId", nativeQuery = true)
-    List<MedicineRecords> findAllByWarehouseId(@Param("warehouseId") Long warehouseId);
+    //@Query(value = "select mr from com.dimastasky.foodkeeper.models.medicine_warehouse.MedicineRecords mr where mr.warehouse = :warehouseId", nativeQuery = true)
+    //List<MedicineRecords> findAllByWarehouseId(@Param("warehouseId") Long warehouseId);
+
+    List<MedicineRecords> findAllByWarehouseId(Long warehouseId);
+
+
 }

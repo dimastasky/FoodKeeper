@@ -1,7 +1,7 @@
 package com.dimastasky.foodkeeper.services;
 
-import com.dimastasky.foodkeeper.models.dtos.ProductDTO.ProductCreationDTO;
-import com.dimastasky.foodkeeper.models.dtos.ProductDTO.ProductDTO;
+import com.dimastasky.foodkeeper.models.dtos.product_dto.ProductCreationDTO;
+import com.dimastasky.foodkeeper.models.dtos.product_dto.ProductDTO;
 import com.dimastasky.foodkeeper.models.food_warehouse.Product;
 import com.dimastasky.foodkeeper.models.food_warehouse.FoodType;
 import com.dimastasky.foodkeeper.repository.food.ProductRepository;
@@ -20,29 +20,29 @@ public class ProductsService {
     private final ProductTypeRepository productTypeRepository;
     ModelMapper modelMapper = new ModelMapper();
 
-    public List<Product> getAll() {
-        return repository.findAll();
-    }
-
-    public ProductCreationDTO addProduct(ProductCreationDTO productCreationDTO) {
-        Product product = new Product();
-
-        product.setName(productCreationDTO.getName());
-        product.setFoodType(productTypeRepository.getReferenceById(productCreationDTO.getFoodTypeId()));
-        product.setEnergy(productCreationDTO.getEnergy());
-        product.setFat(productCreationDTO.getFat());
-        product.setProtein(productCreationDTO.getProtein());
-        product.setCarbs(productCreationDTO.getCarbs());
-        product.setPackageWeight(productCreationDTO.getWeight());
-
-        repository.save(product);
-
-        return productCreationDTO;
-    }
-
     public ProductDTO findProductById(Long id) {
         Product product = repository.getReferenceById(id);
         return modelMapper.map(product, ProductDTO.class);
+    }
+
+    public List<Product> findAllProducts() {
+        return repository.findAll();
+    }
+
+    public ProductCreationDTO addProduct(ProductCreationDTO productDTO) {
+        Product product = new Product();
+
+        product.setName(productDTO.getName());
+        product.setFoodType(productTypeRepository.getReferenceById(productDTO.getFoodTypeId()));
+        product.setEnergy(productDTO.getEnergy());
+        product.setFat(productDTO.getFat());
+        product.setProtein(productDTO.getProtein());
+        product.setCarbs(productDTO.getCarbs());
+        product.setPackageWeight(productDTO.getWeight());
+
+        repository.save(product);
+
+        return productDTO;
     }
 
     public ProductDTO updateProduct(ProductDTO productDTO) {
@@ -65,10 +65,7 @@ public class ProductsService {
         repository.deleteById(id);
     }
 
-    public List<Product> findAllProducts() {
-        return repository.findAll();
-    }
-
+    //todo: перенести в отдельный CRUD сервис
     public List<FoodType> findAllProductTypes() {
         return productTypeRepository.findAll();
     }
