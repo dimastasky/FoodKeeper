@@ -14,6 +14,4 @@ public interface MedicineRecordsRepository extends JpaRepository<MedicineRecords
     //List<MedicineRecords> findAllByWarehouseId(@Param("warehouseId") Long warehouseId);
 
     List<MedicineRecords> findAllByWarehouseId(Long warehouseId);
-
-
 }

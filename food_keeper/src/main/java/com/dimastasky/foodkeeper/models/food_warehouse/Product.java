@@ -54,7 +54,7 @@ public class Product {
 
     @JsonIgnore
     @OneToMany(mappedBy = "product")
-    private Set<FoodRecords> foodRecords;
+    private Set<FoodRecord> foodRecords;
 
     public Product() {
 

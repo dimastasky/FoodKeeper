@@ -29,36 +29,36 @@ public class ProductsService {
         return repository.findAll();
     }
 
-    public ProductCreationDTO addProduct(ProductCreationDTO productDTO) {
+    public ProductCreationDTO addProduct(ProductCreationDTO params) {
         Product product = new Product();
 
-        product.setName(productDTO.getName());
-        product.setFoodType(productTypeRepository.getReferenceById(productDTO.getFoodTypeId()));
-        product.setEnergy(productDTO.getEnergy());
-        product.setFat(productDTO.getFat());
-        product.setProtein(productDTO.getProtein());
-        product.setCarbs(productDTO.getCarbs());
-        product.setPackageWeight(productDTO.getWeight());
+        product.setName(params.getName());
+        product.setFoodType(productTypeRepository.getReferenceById(params.getFoodTypeId()));
+        product.setEnergy(params.getEnergy());
+        product.setFat(params.getFat());
+        product.setProtein(params.getProtein());
+        product.setCarbs(params.getCarbs());
+        product.setPackageWeight(params.getWeight());
 
         repository.save(product);
 
-        return productDTO;
+        return params;
     }
 
-    public ProductDTO updateProduct(ProductDTO productDTO) {
-        Product product = repository.getReferenceById(productDTO.getId());
+    public ProductDTO editProduct(ProductDTO params) {
+        Product product = repository.getReferenceById(params.getId());
 
-        product.setName(productDTO.getName());
-        product.setFoodType(productTypeRepository.getReferenceById(productDTO.getFoodTypeId()));
-        product.setEnergy(productDTO.getCalories());
-        product.setFat(productDTO.getFat());
+        product.setName(params.getName());
+        product.setFoodType(productTypeRepository.getReferenceById(params.getFoodTypeId()));
+        product.setEnergy(params.getCalories());
+        product.setFat(params.getFat());
         product.setProtein(product.getProtein());
-        product.setCarbs(productDTO.getCarbs());
-        product.setPackageWeight(productDTO.getWeight());
+        product.setCarbs(params.getCarbs());
+        product.setPackageWeight(params.getWeight());
 
         repository.save(product);
 
-        return productDTO;
+        return params;
     }
 
     public void deleteProductById(Long id) {

@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "medicine_records")
@@ -28,9 +29,7 @@ public class MedicineRecords {
 
     private Integer count;
 
-    @Temporal(TemporalType.DATE)
     private LocalDate expirationDate;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private LocalDate timestamp;
+    private LocalDateTime timestamp;
 }

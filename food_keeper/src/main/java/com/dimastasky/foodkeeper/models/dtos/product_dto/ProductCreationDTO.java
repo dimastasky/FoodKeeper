@@ -7,7 +7,6 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 
-// TODO: Написать класс
 @Getter
 @Setter
 public class ProductCreationDTO implements DTOEntity {

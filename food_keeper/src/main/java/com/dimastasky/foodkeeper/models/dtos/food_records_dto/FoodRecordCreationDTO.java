@@ -1,4 +1,4 @@
-package com.dimastasky.foodkeeper.models.dtos.product_records_dto;
+package com.dimastasky.foodkeeper.models.dtos.food_records_dto;
 
 import com.dimastasky.foodkeeper.models.dtos.DTOEntity;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-public class ProductRecCreationDTO implements DTOEntity {
+public class FoodRecordCreationDTO implements DTOEntity {
     @NotNull
     private Long userId;
 

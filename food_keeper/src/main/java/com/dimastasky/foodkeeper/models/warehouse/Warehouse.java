@@ -1,6 +1,6 @@
 package com.dimastasky.foodkeeper.models.warehouse;
 
-import com.dimastasky.foodkeeper.models.food_warehouse.FoodRecords;
+import com.dimastasky.foodkeeper.models.food_warehouse.FoodRecord;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
@@ -28,7 +28,7 @@ public class Warehouse {
 
     @JsonIgnore
     @OneToMany(mappedBy = "warehouse")
-    private Set<FoodRecords> foodRecords;
+    private Set<FoodRecord> foodRecords;
 
 
     public Warehouse() {

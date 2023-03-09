@@ -78,14 +78,14 @@ public class WarehouseService {
 //        }
 //    }
 
-    public WarehouseDTO updateWarehouseById(WarehouseDTO warehouseDTO) {
-        Warehouse warehouse = warehouseRepository.getReferenceById(warehouseDTO.getId());
+    public WarehouseDTO updateWarehouseById(WarehouseDTO params) {
+        Warehouse warehouse = warehouseRepository.getReferenceById(params.getId());
 
-        warehouse.setName(warehouseDTO.getName());
-        warehouse.setWarehouseType(warehouseTypeRepository.getReferenceById(warehouseDTO.getWarehouseType()));
+        warehouse.setName(params.getName());
+        warehouse.setWarehouseType(warehouseTypeRepository.getReferenceById(params.getWarehouseType()));
 
         warehouseRepository.save(warehouse);
-        return warehouseDTO;
+        return params;
     }
 
 //    public ResponseEntity<?> deleteWarehouseById(Long warehouseId, Long userId) {

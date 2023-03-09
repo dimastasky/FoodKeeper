@@ -2,18 +2,21 @@ package com.dimastasky.foodkeeper.models.food_warehouse;
 
 import com.dimastasky.foodkeeper.models.warehouse.Warehouse;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
 @Table(name = "food_records")
 @Getter
 @Setter
-public class FoodRecords {
+public class FoodRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -30,12 +33,9 @@ public class FoodRecords {
 
     private Integer count;
 
-    @Temporal(TemporalType.DATE)
     private LocalDate bestBefore;
 
-    //TODO: Timestamp дата последнего добавления на склад
-    @Temporal(TemporalType.TIMESTAMP)
-    private LocalDate timestamp;
+    private LocalDateTime timestamp;
 
 
 }

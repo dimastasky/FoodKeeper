@@ -1,5 +1,6 @@
 package com.dimastasky.foodkeeper.services;
 
+import com.dimastasky.foodkeeper.models.dtos.medicine_dto.MedicineCreationDTO;
 import com.dimastasky.foodkeeper.models.medicine_warehouse.MedicineRecords;
 import com.dimastasky.foodkeeper.models.warehouse.Warehouse;
 import com.dimastasky.foodkeeper.repository.medicine.MedicineRecordsRepository;
@@ -27,6 +28,9 @@ public class MedicineRecordsService {
         //todo: Оптимизировать запрос,
         return medRecordsRepository.findAllByWarehouseId(warehouseId);
     }
+
+
+
 
 
 
