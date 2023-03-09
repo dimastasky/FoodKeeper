@@ -3,14 +3,16 @@ package com.dimastasky.foodkeeper.controllers;
 import com.dimastasky.foodkeeper.models.account.Role;
 import com.dimastasky.foodkeeper.models.account.User;
 import com.dimastasky.foodkeeper.models.enums.ERole;
-import com.dimastasky.foodkeeper.models.food_warehouse.Warehouse;
-import com.dimastasky.foodkeeper.models.food_warehouse.WarehouseType;
-import com.dimastasky.foodkeeper.models.dtos.userDTO.UserLoginDTO;
-import com.dimastasky.foodkeeper.models.dtos.userDTO.UserCreationDTO;
+import com.dimastasky.foodkeeper.models.warehouse.UserWarehouse;
+import com.dimastasky.foodkeeper.models.warehouse.Warehouse;
+import com.dimastasky.foodkeeper.models.warehouse.WarehouseType;
+import com.dimastasky.foodkeeper.models.dtos.user_dto.UserLoginDTO;
+import com.dimastasky.foodkeeper.models.dtos.user_dto.UserCreationDTO;
 import com.dimastasky.foodkeeper.payload.response.JwtResponse;
 import com.dimastasky.foodkeeper.payload.response.MessageResponse;
-import com.dimastasky.foodkeeper.repository.RoleRepository;
-import com.dimastasky.foodkeeper.repository.UserRepository;
+import com.dimastasky.foodkeeper.repository.user.RoleRepository;
+import com.dimastasky.foodkeeper.repository.user.UserRepository;
+import com.dimastasky.foodkeeper.repository.warehouse.UserWarehouseRepository;
 import com.dimastasky.foodkeeper.repository.warehouse.WarehouseRepository;
 import com.dimastasky.foodkeeper.repository.warehouse.WarehouseTypeRepository;
 import com.dimastasky.foodkeeper.security.jwt.JwtUtils;
@@ -48,6 +50,9 @@ public class AuthController {
     WarehouseRepository warehouseRepository;
 
     @Autowired
+    UserWarehouseRepository userWarehouseRepository;
+
+    @Autowired
     PasswordEncoder encoder;
 
     @Autowired
@@ -62,11 +67,9 @@ public class AuthController {
         return userRepository.findAll();
     }
 
-    // todo: Return JWT response OR DTO ?
     @PostMapping("/login")
     public JwtResponse authenticateUser(@Valid @RequestBody UserLoginDTO userLoginDTO) {
         Authentication authentication = authenticationManager.authenticate(
-
                 new UsernamePasswordAuthenticationToken(userLoginDTO.getUsername(), userLoginDTO.getPassword())
         );
 
@@ -136,14 +139,14 @@ public class AuthController {
         user.setRoles(roles);
 
         // TODO: Убрать инициализацию склада, инициализировать склад отдельно
-        Set<Warehouse> warehouses = new HashSet<>();
         WarehouseType warehouseType = warehouseTypeRepository.getReferenceById(1);
         Warehouse initWarehouse = new Warehouse("Склад "+ user.getFullname(), warehouseType);
-        warehouses.add(initWarehouse);
-        user.setWarehouses(warehouses);
 
         warehouseRepository.save(initWarehouse);
         userRepository.save(user);
+
+        UserWarehouse userWarehouse = new UserWarehouse(user.getId(), initWarehouse.getId());
+        userWarehouseRepository.save(userWarehouse);
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }

@@ -1,6 +1,5 @@
 package com.dimastasky.foodkeeper.models.account;
 
-import com.dimastasky.foodkeeper.models.food_warehouse.Warehouse;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
@@ -44,11 +43,6 @@ public class User {
     @NotBlank
     @Size(max = 120)
     private String password;
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name="owners_warehouses", joinColumns = @JoinColumn(name = "owner_id"),
-                                        inverseJoinColumns = @JoinColumn(name = "warehouse_id"))
-    private Set<Warehouse> warehouses = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name="user_roles", joinColumns = @JoinColumn(name = "user_id"),

@@ -29,39 +29,41 @@ public class Product {
 //    @ManyToMany(fetch = FetchType.LAZY)
 //    @JoinTable(name="product_types", joinColumns = @JoinColumn(name = "product_id"),
 //    inverseJoinColumns = @JoinColumn(name = "type_id"))
-//    private Set<ProductType> foodTypes = new HashSet<>();
+//    private Set<FoodType> foodTypes = new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name = "foodtype_id", referencedColumnName = "id")
-    private ProductType productType;
+    private FoodType foodType;
 
 //    @NotBlank
-    private Double energy;
+    private Float energy;
 
 //    @NotBlank
-    private Double fat;
+    private Float fat;
 
 //    @NotBlank
-    private Double protein;
+    private Float protein;
 
 //    @NotBlank
-    private Double carbs;
+    private Float carbs;
 
 //    @NotBlank
-    private Double packageWeight;
+    private Float packageWeight;
+
+    //todo: Добавить единицы измерения eType (grams, kilograms, liters etc.)
 
     @JsonIgnore
     @OneToMany(mappedBy = "product")
-    private Set<WarehouseRecords> warehouseRecords;
+    private Set<FoodRecord> foodRecords;
 
     public Product() {
 
     }
 
-    public Product(Long id, String name, ProductType productType, Double energy, Double fat, Double protein, Double carbs, Double weight) {
+    public Product(Long id, String name, FoodType foodType, Float energy, Float fat, Float protein, Float carbs, Float weight) {
         this.id = id;
         this.name = name;
-        this.productType = productType;
+        this.foodType = foodType;
         this.energy = energy;
         this.fat = fat;
         this.protein = protein;

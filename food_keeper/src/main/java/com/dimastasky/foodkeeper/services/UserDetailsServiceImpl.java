@@ -1,7 +1,7 @@
 package com.dimastasky.foodkeeper.services;
 
 import com.dimastasky.foodkeeper.models.account.User;
-import com.dimastasky.foodkeeper.repository.UserRepository;
+import com.dimastasky.foodkeeper.repository.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

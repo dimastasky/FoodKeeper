@@ -1,157 +1,60 @@
 package com.dimastasky.foodkeeper.controllers;
 
-import com.dimastasky.foodkeeper.models.account.User;
-import com.dimastasky.foodkeeper.models.food_warehouse.Warehouse;
-import com.dimastasky.foodkeeper.models.food_warehouse.WarehouseRecords;
-import com.dimastasky.foodkeeper.models.dtos.WarehouseRecordsDTO.RecordCreationDTO;
-import com.dimastasky.foodkeeper.models.dtos.WarehouseDTO.WarehouseCreationDTO;
-import com.dimastasky.foodkeeper.models.dtos.userDTO.UserIdDTO;
-import com.dimastasky.foodkeeper.models.food_warehouse.WarehouseType;
-import com.dimastasky.foodkeeper.repository.UserRepository;
-import com.dimastasky.foodkeeper.repository.warehouse.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import com.dimastasky.foodkeeper.models.dtos.warehouse_dto.WarehouseDTO;
+import com.dimastasky.foodkeeper.models.dtos.user_dto.UserIdDTO;
+import com.dimastasky.foodkeeper.models.warehouse.Warehouse;
+import com.dimastasky.foodkeeper.models.dtos.warehouse_dto.WarehouseCreationDTO;
+import com.dimastasky.foodkeeper.models.warehouse.WarehouseType;
+import com.dimastasky.foodkeeper.services.WarehouseService;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/warehouse")
+@AllArgsConstructor
 public class WarehouseController {
-    @Autowired
-    UserRepository userRepository;
 
-    @Autowired
-    ProductRepository productRepository;
-
-    @Autowired
-    WarehouseRepository warehouseRepository;
-
-    @Autowired
-    WarehouseRecordsRepository warehouseRecordsRepository;
-
-    @Autowired
-    WarehouseTypeRepository warehouseTypeRepository;
+    private final WarehouseService service;
 
     @GetMapping("/all-warehouses")
-    public List<Warehouse> getAllWarehouses() { return warehouseRepository.findAll(); }
-
-    @PostMapping("/all-user-warehouses")
-    public List<Warehouse> getAllUserWarehouses(@RequestBody UserIdDTO userRequest) {
-        List<Warehouse> warehouses = new ArrayList<>();
-        User currentUser = userRepository.getReferenceById(userRequest.getUser());
-        for (Warehouse warehouse : warehouseRepository.findAll()) {
-            if (warehouse.getOwners().contains(currentUser)) {
-                warehouses.add(warehouse);
-            }
-        }
-        if (warehouses.size() > 0) {
-            return warehouses;
-        } else {
-            return null;
-        }
+    public List<Warehouse> getAllWarehouses() {
+        return service.findAllWarehouses();
     }
 
-    @GetMapping("/warehouse/{id}")
-    public Warehouse getWarehouse(@PathVariable Long id)
-    {
-        Warehouse warehouse = warehouseRepository.getReferenceById(id);
-        User currentUser = userRepository.getReferenceById(id);
-        if(warehouse.getOwners().contains(currentUser)) {
-            return warehouseRepository.getReferenceById(id);
-        } else {
-            return null;
-        }
-    }
-
-    @DeleteMapping("/warehouse/{id}")
-    public ResponseEntity<?> deleteWarehouse(@PathVariable Long id,
-                                             @RequestBody UserIdDTO userRequest) {
-        Warehouse warehouse = warehouseRepository.getReferenceById(id);
-        User currentUser = userRepository.getReferenceById(userRequest.getUser());
-
-        if (warehouse.getOwners().contains(currentUser)) {
-            warehouseRepository.deleteById(id);
-            return new ResponseEntity<>("Warehouse with id " + id + " deleted.", HttpStatus.ACCEPTED);
-        } else {
-            return new ResponseEntity<>("Not your warehouse", HttpStatus.UNAUTHORIZED);
-        }
-
-    }
-
-    // Todo: Создать ограничение на максимальное к-во складов для пользователя
-
-    //-----Создать склад-----
-    @PostMapping("/warehouse")
-    public WarehouseCreationDTO createWarehouse(@Valid @RequestBody WarehouseCreationDTO warehouseCreationDTO) {
-        Warehouse warehouse = new Warehouse();
-
-        warehouse.setName(warehouseCreationDTO.getName());
-        warehouse.setWarehouseType(warehouseTypeRepository.getReferenceById(warehouseCreationDTO.getWarehouseType()));
-
-        warehouseRepository.save(warehouse);
-
-        return warehouseCreationDTO;
+    @PostMapping("/current-user-warehouses")
+    public List<Warehouse> getUserWarehouses(@RequestBody UserIdDTO user) {
+        return service.findWarehousesByUserId(user.getUserId());
     }
 
     @GetMapping("warehouse-types")
     public List<WarehouseType> getAllWarehouseTypes() {
-        return warehouseTypeRepository.findAll();
+        return service.finAllWarehouseTypes();
     }
 
-    // Получить все записи выбранного склада
-    @PostMapping("/warehouse/{id}/records")
-    public List<WarehouseRecords> getWarehouseRecords(@RequestBody UserIdDTO userRequest,
-                                                      @PathVariable Long id) {
-        List<WarehouseRecords> warehouseRecords = new ArrayList<>();
-        Warehouse warehouse = warehouseRepository.getReferenceById(id);
-        User currentUser = userRepository.getReferenceById(userRequest.getUser());
-
-        // todo: Оптимизировать запрос, отфильтровать
-        for (WarehouseRecords record : warehouseRecordsRepository.findAll()) {
-            if (warehouse.getWarehouseRecords().contains(record)) {
-                warehouseRecords.add(record);
-            }
-        }
-        if (warehouseRecords.isEmpty()) {
-            return null;
-        } else {
-            return warehouseRecords;
-        }
+    // todo: Создать ограничение на максимальное к-во складов для пользователя
+    @PostMapping("/warehouse")
+    public WarehouseCreationDTO createWarehouse(@Valid @RequestBody WarehouseCreationDTO warehouseCreationDTO) {
+        return service.createWarehouse(warehouseCreationDTO);
     }
 
-    // Добавить продукт на склад
-    @PostMapping("/warehouse/{id}/add_record")
-    public ResponseEntity<?> addProductToW(@Valid @RequestBody RecordCreationDTO recordCreationDTO,
-                                           @PathVariable Long id) {
-        WarehouseRecords warehouseRecords = new WarehouseRecords();
+//    @GetMapping("/warehouse")
+//    public Warehouse getWarehouse(@RequestParam("id") Long id) {
+//        return service.getWarehouseById(id);
+//    }
 
-        Warehouse warehouse = warehouseRepository.getReferenceById(id);
-        //todo: user ID ?
-        User currentUser = userRepository.getReferenceById(recordCreationDTO.getUser());
-
-        //todo: обновление записи, если Продукт и срок годности совпадают
-        if (warehouse.getOwners().contains(currentUser)) {
-            warehouseRecords.setWarehouse(warehouseRepository.getReferenceById(id));
-            warehouseRecords.setProduct(productRepository.getReferenceById(recordCreationDTO.getProduct()));
-            warehouseRecords.setCount(recordCreationDTO.getQuantity());
-            warehouseRecords.setBestBefore(recordCreationDTO.getBestBefore());
-
-
-            warehouseRecordsRepository.save(warehouseRecords);
-
-            return ResponseEntity.ok("Product added.");
-        } else {
-            return new ResponseEntity<>("Product add to warehouse is Unauthorized.", HttpStatus.UNAUTHORIZED);
-        }
+    @PutMapping("/warehouse")
+    public WarehouseDTO updateWarehouse(WarehouseDTO warehouseDTO) {
+        return service.updateWarehouseById(warehouseDTO);
     }
 
-
-
-
+//    @DeleteMapping("/warehouse")
+//    public ResponseEntity<?> deleteWarehouse(@RequestParam Long warehouseId,
+//                                             @RequestParam Long userId) {
+//        return service.deleteWarehouseById(warehouseId, userId);
+//    }
 
 }
