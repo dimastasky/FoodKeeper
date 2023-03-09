@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "foodType")
+@Table(name = "foodTypes")
 @Getter
 @Setter
 public class FoodType {
@@ -19,17 +19,21 @@ public class FoodType {
 
     @Enumerated(EnumType.STRING)
     @Column(length = 20)
-    private EFoodType name;
+    private EFoodType foodType;
+
+    private String ruFoodTypeName;
+
+    private String engFoodTypeName;
 
     @JsonIgnore
     @OneToMany(mappedBy = "foodType")
-    private Set<Product> foodType;
+    private Set<Product> products;
 
     public FoodType() {
 
     }
 
     public FoodType(EFoodType foodType) {
-        this.name = foodType;
+        this.foodType = foodType;
     }
 }

@@ -36,29 +36,31 @@ public class Product {
     private FoodType foodType;
 
 //    @NotBlank
-    private Double energy;
+    private Float energy;
 
 //    @NotBlank
-    private Double fat;
+    private Float fat;
 
 //    @NotBlank
-    private Double protein;
+    private Float protein;
 
 //    @NotBlank
-    private Double carbs;
+    private Float carbs;
 
 //    @NotBlank
-    private Double packageWeight;
+    private Float packageWeight;
+
+    //todo: Добавить единицы измерения eType (grams, kilograms, liters etc.)
 
     @JsonIgnore
     @OneToMany(mappedBy = "product")
-    private Set<WarehouseRecords> warehouseRecords;
+    private Set<FoodRecord> foodRecords;
 
     public Product() {
 
     }
 
-    public Product(Long id, String name, FoodType foodType, Double energy, Double fat, Double protein, Double carbs, Double weight) {
+    public Product(Long id, String name, FoodType foodType, Float energy, Float fat, Float protein, Float carbs, Float weight) {
         this.id = id;
         this.name = name;
         this.foodType = foodType;
