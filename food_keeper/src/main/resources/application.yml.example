@@ -1,0 +1,35 @@
+server:
+  port= 8080
+
+  # DataBase Connection
+spring:
+  datasource:
+    url: jdbc:postgresql://127.0.0.1:5432/foodkeeper_t3
+    username: postgres
+    password: 78487848
+
+  # DataBase props
+  jpa:
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        ddl-auto: update # Hibernate ddl auto (create, create-drop, validate, update)
+
+  # App props
+foodkeeper:
+  jjwt:
+    secret: 24r3efewdc32r4
+    expiration: 86400000
+
+#  # Logger log4j2
+#logstash:
+#  host: @logstash.host@
+#  port: @logstash.port@
+#logger:
+#  console:
+#    tresholdFilter: @logger.console.tresholdFilter@
+#  socket:
+#    tresholdFilter: @logger.socket.tresholdFilter@

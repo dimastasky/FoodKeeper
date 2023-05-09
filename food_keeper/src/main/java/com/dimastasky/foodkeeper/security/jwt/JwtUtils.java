@@ -1,6 +1,6 @@
 package com.dimastasky.foodkeeper.security.jwt;
 
-import com.dimastasky.foodkeeper.services.UserDetailsImpl;
+import com.dimastasky.foodkeeper.security.services.UserDetailsImpl;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,10 +14,10 @@ import java.util.Date;
 public class JwtUtils {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
-    @Value("${foodkeeper.app.jwtSecret}")
+    @Value("${foodkeeper.jjwt.secret}")
     private String jwtSecret;
 
-    @Value("${foodkeeper.app.jwtExpirationMs}")
+    @Value("${foodkeeper.jjwt.expiration}")
     private int jwtExpirationMs;
 
     public JwtUtils() {

@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "foodTypes")
+@Table(name = "foodType")
 @Getter
 @Setter
 public class FoodType {
@@ -19,7 +19,7 @@ public class FoodType {
 
     @Enumerated(EnumType.STRING)
     @Column(length = 20)
-    private EFoodType foodType;
+    private EFoodType name;
 
     private String ruFoodTypeName;
 
@@ -34,6 +34,6 @@ public class FoodType {
     }
 
     public FoodType(EFoodType foodType) {
-        this.foodType = foodType;
+        this.name = foodType;
     }
 }

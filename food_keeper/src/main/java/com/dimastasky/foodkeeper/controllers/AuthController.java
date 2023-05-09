@@ -16,7 +16,7 @@ import com.dimastasky.foodkeeper.repository.warehouse.UserWarehouseRepository;
 import com.dimastasky.foodkeeper.repository.warehouse.WarehouseRepository;
 import com.dimastasky.foodkeeper.repository.warehouse.WarehouseTypeRepository;
 import com.dimastasky.foodkeeper.security.jwt.JwtUtils;
-import com.dimastasky.foodkeeper.services.UserDetailsImpl;
+import com.dimastasky.foodkeeper.security.services.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -116,22 +116,21 @@ public class AuthController {
         } else {
             strRoles.forEach(role -> {
                 switch (role) {
-                    case "admin":
+                    case "admin" -> {
                         Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(adminRole);
-
-                        break;
-                    case "mod":
+                    }
+                    case "mod" -> {
                         Role modRole = roleRepository.findByName(ERole.ROLE_MODERATOR)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(modRole);
-
-                        break;
-                    default:
+                    }
+                    default -> {
                         Role userRole = roleRepository.findByName(ERole.ROLE_USER)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(userRole);
+                    }
                 }
 
             });
