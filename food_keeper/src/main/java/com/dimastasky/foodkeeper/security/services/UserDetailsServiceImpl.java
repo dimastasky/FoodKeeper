@@ -1,4 +1,4 @@
-package com.dimastasky.foodkeeper.services;
+package com.dimastasky.foodkeeper.security.services;
 
 import com.dimastasky.foodkeeper.models.account.User;
 import com.dimastasky.foodkeeper.repository.user.UserRepository;
