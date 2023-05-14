@@ -1,6 +1,7 @@
-package com.dimastasky.foodkeeper.security.jwt;
+package com.dimastasky.foodkeeper.security;
 
-import com.dimastasky.foodkeeper.services.UserDetailsServiceImpl;
+import com.dimastasky.foodkeeper.security.jwt.JwtUtils;
+import com.dimastasky.foodkeeper.security.services.UserDetailsServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,3 +60,12 @@ public class AuthTokenFilter extends OncePerRequestFilter {
         return null;
     }
 }
+
+//  After this, everytime you want to get UserDetails, just use SecurityContext like this:
+//
+//    UserDetails userDetails =
+//            (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//
+//// userDetails.getUsername()
+//// userDetails.getPassword()
+//// userDetails.getAuthorities()

@@ -7,6 +7,7 @@ import com.dimastasky.foodkeeper.models.dtos.warehouse_dto.WarehouseCreationDTO;
 import com.dimastasky.foodkeeper.models.warehouse.WarehouseType;
 import com.dimastasky.foodkeeper.services.WarehouseService;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -21,6 +22,7 @@ public class WarehouseController {
     private final WarehouseService service;
 
     @GetMapping("/all-warehouses")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public List<Warehouse> getAllWarehouses() {
         return service.findAllWarehouses();
     }
