@@ -1,12 +1,12 @@
 server:
-  port= 8080
+  port: 8080
 
   # DataBase Connection
 spring:
   datasource:
     url: jdbc:postgresql://127.0.0.1:5432/foodkeeper_t3
-    username: postgres
-    password: 78487848
+    username: <username>
+    password: <password>
 
   # DataBase props
   jpa:
@@ -21,7 +21,7 @@ spring:
   # App props
 foodkeeper:
   jjwt:
-    secret: 24r3efewdc32r4
+    secret: <secret>
     expiration: 86400000
 
 #  # Logger log4j2
